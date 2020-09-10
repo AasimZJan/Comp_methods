@@ -59,7 +59,7 @@ class matrix:
     def Det(self):
         a=self.g
         def mm(a,i,j):
-            return [row[:j] + row[j+1:] for row in (self.g[:i]+self.g[i+1:])]
+            return [row[:j] + row[j+1:] for row in (a[:i]+a[i+1:])]
         def det(a):
             if len(a) == 2:
                 return a[0][0]*a[1][1]-a[0][1]*a[1][0]
@@ -69,23 +69,92 @@ class matrix:
                 summ= summ+((-1)**i)*a[0][i]*det(mm(a,0,i))
             return(summ)
         return(det(a))
+    
+    def Inv(self):
+        m=self.g
+        def tran(m):
+            n=[]
+            for k in range(len(m[0])):
+                r=[]
+                for i in range(len(m)):
+                    r.append(m[i][k])
+                n.append(r)
+            return(n)
+        def mm(a,i,j):
+            return [row[:j] + row[j+1:] for row in (a[:i]+a[i+1:])]
+        def det(a):
+            if len(a) == 2:
+                return a[0][0]*a[1][1]-a[0][1]*a[1][0]
+
+            summ = 0
+            for i in range(len(a)):
+                summ= summ+((-1)**i)*a[0][i]*det(mm(a,0,i))
+            return(summ)
+        def inv(m):
+            determinant = det(m)
+            #special case for 2x2 matrix:
+            if len(m) == 2:
+                return [[m[1][1]/determinant, -1*m[0][1]/determinant],[-1*m[1][0]/determinant, m[0][0]/determinant]]
+                        
+
+            #find matrix of cofactors
+            cofactors = []
+            for r in range(len(m)):
+                cofactorRow = []
+                for c in range(len(m)):
+                    minor = mm(m,r,c)
+                    cofactorRow.append(((-1)**(r+c)) * det(minor))
+                cofactors.append(cofactorRow)
+            cofactors = tran(cofactors)
+            for r in range(len(cofactors)):
+                for c in range(len(cofactors)):
+                    cofactors[r][c] = cofactors[r][c]/determinant
+            return cofactors
+        return(inv(m))
+    def LU(self):
+        a=self.g            #now "a"will be the matrix  
+        def lu(a):
+            n=len(a)
+            if len(a) != len(a[0]):
+                print("Input a square matrix")
+                pass
+            #creating two zero matrixes of size n*n
+            l= [[0 for x in range(n)] for y in range(n)]
+            u= [[0 for x in range(n)] for y in range(n)]
+            for k in range(n):
+                for i in range(n):
+                    if i<k:
+                        pass
+
+                    if i==k:
+                        l[i][i]=1
+
+                        sum =0
+                        for j in range(k):
+                            sum=sum+l[k][j]*u[j][k]
+                        u[k][i]=a[i][k]-sum
+                    
+                    if i>k:
+                        sum=0
+                        for m in range(k):
+                            sum=sum+l[i][m]*u[m][k]
+                        l[i][k]=(a[i][k]-sum)/u[k][k]
+                        sum=0
+                        for m in range(k):
+                            sum=sum+l[k][m]*u[m][i]
+                        u[k][i]=a[k][i]-sum
+            return(l,u)
+        l,u=lu(a)
+        print(l)
+        print(u)
+            
 
 
 
         
 #test
-a=[[1,2,10],[5,3,45]]
-m1=matrix(a)
-b=[[2,2],[3,3]]
-m2=matrix(b)
-print(m1.mult(m2))
-print(m1.tran())
-c=[[1,2,3],[2,3,4],[4,5,6]]
-m3=matrix(c)
-print(m3.trace())
-print(m2.trace())
-print(m1.trace())
-d=[[1,2,3,4],[2,3,4,5],[3,4,5,6]]
-m4=matrix(d)
-print(m4.mm(2,2))
-print(m1.Det())
+x=[[1,2,3],[2,5,4],[3,15,5]]
+m1=matrix(x)
+#m1.LU()
+#m1.Det()
+m1.Inv()
