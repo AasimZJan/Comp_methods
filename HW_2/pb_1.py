@@ -23,6 +23,7 @@ def midpoint(f,a,b,n):                       #arguments(f=the function, a=the st
         x1=x0+h 
         first=first+f((x0+x1)*0.5)*h         #used recursion
     print('The value from midpoint rule is', first)
+    return(first)
 ####    
 ####
 #test function
