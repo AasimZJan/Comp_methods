@@ -14,7 +14,7 @@ import math                                    #for the log function
 import matplotlib.pyplot as plt                #for plotting
 
 #defining constants
-c=15
+c=35
 v_2=160*u.km/u.s
 r_2=230*u.kiloparsec
 G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)
@@ -78,17 +78,15 @@ r=300*u.kiloparsec                          #location of shell
 M_r1=Menc(r+Del_r,y(r+Del_r,c,r_2,v_2),G)-Menc(r-Del_r,y(r-Del_r,c,r_2,v_2),G)
 print("Mass in a little shell",M_r1)
 ###dM/dr
-def df(r,h):
+def df(r,h,c,v_2):
     Del_r=0.5*u.kiloparsec
-    c=15
-    v_2=160*u.km/u.s
     r_2=230*u.kiloparsec
     G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)
     M1=Menc(r+Del_r,y(r+Del_r,c,r_2,v_2),G)-Menc(r-Del_r,y(r-Del_r,c,r_2,v_2),G)
     M2=Menc(r+h+Del_r,y(r+h+Del_r,c,r_2,v_2),G)-Menc(r+h-Del_r,y(r+h-Del_r,c,r_2,v_2),G)
     return((M2-M1)/h)
 h=0.00001*u.kiloparsec
-print("the value of dM(r)/dr at",r,"is",df(r,h))
+print("the value of dM(r)/dr at",r,"is",df(r,h,c,v_2))
 print("value of v_200 and c is",v_2,c)
 
 
