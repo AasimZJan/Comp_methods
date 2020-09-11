@@ -25,13 +25,7 @@ def midpoint(f,a,b,n):                       #arguments(f=the function, a=the st
     print('The value from midpoint rule is', first)
     return(first)
 ####    
-####
-#test function
-def g():                                        
-    def y(x):
-        return(math.cos(x))
-    return(y)
-####
+
 ####
 def trapezoid(f,a,b,n):                      #arguments(f=the function, a=the starting point,
                                              #b=the ending point,n the number of divisions)  
@@ -42,7 +36,7 @@ def trapezoid(f,a,b,n):                      #arguments(f=the function, a=the st
         x1=x0+h
         first=first+(f(x1))*h                #used recursion
         x0=x1
-    end=first+f(b)*h*0.5                     #in the formula the last term had no coefficient so I       
+    end=first+f(b)*h*0.5                     #in the formula the last term had no coefficient so I took it out of the loop       
     print('The value from trapezoid rule is', end)
 ####
 ####
@@ -69,4 +63,16 @@ def diff(f,a,h=0.000001):                   #arguments(f=the function, a=the poi
     d=(f(a+h)-f(a))/h                       #basic definition
 #    print(a,f(a))
     print('The result of differentiation is',d)
+#testing
+####
+#test function
+def g():                                        
+    def y(x):
+        return(math.sin(x))
+    return(y)
+####
+diff(g(),math.pi)
+simpson(g(),0,math.pi,1000)
+midpoint(g(),0,math.pi,1000)
+trapezoid(g(),0,math.pi,1000)
     
