@@ -65,11 +65,74 @@ This is a test function and can be used to test these function. You would need t
 \vspace{1.5em}
 \textbf{Problem 2}\vspace{1.5em}
 
+The problem asked us to do four things for a given value of c and V200. In my code(which hopefully has enough comments that it is easier to understand) I have defined three functions, two to give the Mass enclosed as output (one function gives a value of mass enclosed at r and one gives a function in terms of r, which I used to test my approximation I used  in finding the mass in a shell) and one to give Vc. I calculated the mass enclosed in a halo by taking r=300kpc, the mass in a little shell was also found at r=300kpc with a thickness of 1 kpc. I also calculated the derivative at r=300kpc and has a h =0.00001kiloparsec (small increment which we use in the definition). Then I changed V200 values [60,160,260,360] while keeping c=15. Then I changed c values [5,15,25,35] while keeping V200=160km/s. From the figure it appears the curve flattens which is expected as the density decreases as we move away and hence the mass becomes constant. Also, the product of differentiation at r=300kpc is negative showing that mass of shells is decreasing at that point , making the previous observation more solid.
+\vspace{0.2em}
+
+I calculated mass of the shell using midpoint too and it agrees reasonably well with my approximation. 
+
+\begin{center}
+\begin{multicols}{2}
+	\begin{center}
+        \includegraphics[scale=0.25]{Images/60}
+        \end{center}
+\columnbreak
+	\begin{center}
+       \includegraphics[scale=0.25]{Images/160}
+       \end{center}
+\end{multicols}
+\end{center}
+
+\begin{center}
+\begin{multicols}{2}
+	\begin{center}
+        \includegraphics[scale=0.25]{Images/260}
+        \end{center}
+\columnbreak
+	\begin{center}
+       \includegraphics[scale=0.25]{Images/360}
+       \end{center}
+\end{multicols}
+\end{center}
 
 
+\emph{\small{These figures show output when I kept c fixed to 15 and changed V200.}}
+
+\vspace{0.2em}
+
+As I increased V200 while keeping c constant, value of mass in a halo, mass in the shell increased but the dM(r)/dr became more negative.
  
+ 
+ \begin{center}
+\begin{multicols}{2}
+	\begin{center}
+        \includegraphics[scale=0.25]{Images/5}
+        \end{center}
+\columnbreak
+	\begin{center}
+       \includegraphics[scale=0.25]{Images/15}
+       \end{center}
+\end{multicols}
+\end{center}
+
+\begin{center}
+\begin{multicols}{2}
+	\begin{center}
+        \includegraphics[scale=0.25]{Images/25}
+        \end{center}
+\columnbreak
+	\begin{center}
+       \includegraphics[scale=0.25]{Images/35}
+       \end{center}
+\end{multicols}
+\end{center}
+
+
+\emph{\small{These figures show output when I kept v200 fixed to 160 and changed c.}}
+\vspace{0.5em}
+
+As I increased c while keeping V200 constant, everything increased (dM(r)/dr becomes lesser negative).
 \vspace{1.5em}
-\vspace{1.5em}
+
 \textbf{Problem 3}\vspace{1.5em}
 
 In this problem I have made a matrix class in which I have defined eight instances. \vspace{0.2em}
