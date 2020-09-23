@@ -1,0 +1,19 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Sep 21 13:51:32 2020
+
+@author: aj3008
+"""
+
+#%%
+import math                                #libraries
+import matplotlib.pyplot as plt
+def f(b,c):                                #defining the f(t,y(t)) function
+    def y(x,y):
+        return(-10*y+10*math.cos(x))
+    return(y)
+y_0=1*10**(-6)                             #(initial values)
+x_0=10**(-6)
+y=[]
+x=[]

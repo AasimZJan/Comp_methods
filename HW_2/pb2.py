@@ -25,7 +25,6 @@ class matrix:
                     l.append(self.g[j][i]+other.g[j][i])
                 m.append(l)
             print('the sum is',m)
-            return(m)
         else:
             print("addition not defined")
     ###
@@ -42,7 +41,6 @@ class matrix:
                     m.append(sum)
                 n.append(m)
             print('The product is',n)
-            return(n)
         else:
             print("multiplication not defined")
     ###
@@ -55,7 +53,6 @@ class matrix:
                 r.append(self.g[i][k])    
             n.append(r)
         print('the transpose is',n)
-        return(n)
     ###
     ###Trace of a function
     def trace(self):
@@ -66,7 +63,6 @@ class matrix:
         else:
             print('Trace not defined')
         print('The trace is',sum)
-        return(sum)
     ###
     ###Determinant
     def Det(self):
@@ -81,7 +77,7 @@ class matrix:
             for i in range(len(a)):                                            #keeps on going till it becomes a 2*2 matrix and does it till you get the determinant
                 summ= summ+((-1)**i)*a[0][i]*det(mm(a,0,i))
             return(summ)
-        return('The determinant is',det(a))
+        print('The determinant is',det(a))
     ###
     ###Inverse of a matrix
     def Inv(self):
@@ -103,9 +99,7 @@ class matrix:
                             m[j][q]=m[j][q]-(b*m[i][q])
                             l[j][q]=l[j][q]-(b*l[i][q])
             print(l)
-            return(l)
         a=inv(m)
-        return(a)
     ###   
     ###LU decomposition 
     def LU(self):        
@@ -144,7 +138,6 @@ class matrix:
         l,u=lu(a)
         print('lower Traingular matrix',l)
         print('upper Triangular matrix',u)        
-        return(l,u)
 
             
 
@@ -152,9 +145,10 @@ class matrix:
 
         
 #test
-o=[[2,3,4,11],[5,6,8,90],[9,10,20,40],[12,44,34,26]]
+o=[[2,3],[5,6]]
 m1=matrix(o)
-m1.Inv()
-
+#m1.Inv()
+m1.LU()
+m1.Det()
 
 #test
