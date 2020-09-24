@@ -37,9 +37,13 @@ In this problem I use two random matrices to test my matrix class. I used numpy'
 
 \clearpage
 
+
+
+
+
 \textbf{Problem 2}\vspace{1.5em}
 
-This problem asks us to plot number densities at different temperatures. I took 8 temperature values. They are $T=[273,1000,4000,8000,10000,30000,50000,60000]$. For this problem I first found the pattern and write an algorithm for it. Here is a test for 3 state system. Note the coefficients are such that the RHS of equation formed is zero, meaning I took the LHS in the equations you gave to RHS.
+This problem asks us to plot number densities at different temperatures. I took 8 temperature values. They are $T=[273,1000,4000,8000,10000,30000,50000,60000]$. For this problem I first found the pattern and wrote an algorithm for it. Here is a test for 3 state system. Note the coefficients are such that the RHS of equation formed is zero, meaning I took the LHS in the equations(on the Homework sheet) you gave to RHS.
 
 \begin{center}
 \includegraphics[scale=0.5]{/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/Hw_3/Latex/Images/Pattern}
@@ -47,13 +51,13 @@ This problem asks us to plot number densities at different temperatures. I took 
 \textbf{Figure}: Testing the alogorithm
 \end{center}
 
-After finding the pattern I wrote down function for Bul, Aul, Blu and Energy. Then I extracted the data and plotted the number densities V/s Temperature.
+After finding the pattern I wrote down functions for Bul, Aul, Blu and Energy. Then I extracted the data and plotted the number densities V/s Temperature.
 \begin{center}
-\includegraphics[scale=0.5]{/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/Hw_3/Latex/Images/pb2}
+\includegraphics[scale=0.9]{/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/Hw_3/Latex/Images/pb2}
 \\*
 \textbf{Figure}: Plot of number densities v/s temperature
 \end{center} 
-
+The number density decreases for lower states and increases for higher states as temperature is increased. It makes sense as we increase temperature, electron will have more energy available to them, allowing them to spend more time in higher states.
 
 
 \clearpage
@@ -107,7 +111,7 @@ This function call RK-4 method for solving ODE. The arguments are:
 \vspace{1.5em}
 \textbf{Problem 4}\vspace{1.5em}
 \\
-In this problem we are supposed to test the functions we wrote in problem 3 using the pendulum function. To model the function I have made a function called \textbf{f(b,c)}. This function takes two arguments, b= coefficient of y, c= coefficient of g(x,t). This function returns an array where the first element gives d(theta)/dt and the second element returns d(omega)/dt. They values of b is taken as 0.25 and c as 5, step size is 0.1 and k (number of times) is 50 (to see the difference between the three methods) and 200 (to see how damping works).
+In this problem we are supposed to test the functions we wrote in problem 3 using the pendulum function. To model the function I have made a function called \textbf{f(b,c)}. This function takes two arguments, b= coefficient of y, c= coefficient of g(x,t). This function returns an array where the first element gives d(theta)/dt and the second element returns d(omega)/dt. They values of b is taken to be 0.25 and c is 5, step size is 0.1 and k (number of times) is 50 (to see the difference between the three methods) and 200 (to see how damping works).
 \\
 
 
@@ -124,7 +128,7 @@ In this problem we are supposed to test the functions we wrote in problem 3 usin
 \clearpage
 \textbf{Problem 5}\vspace{1.5em}
 \\
-In this problem we are supposed to test our methods on the given equation. I defined a function \textbf{f(l)} which returns the function given in pb5. It takes lambda as input and gives an array as out where first element is always 1 and second element gives dy/dt in terms of y and t. The reason it gives 1 as the first element is because my ODE solvers were made for 2 dependent variables and this has only 1.
+In this problem we are supposed to test our methods on the given equation. I defined a function \textbf{f(l)} which returns the function given in pb5. It takes lambda as input and gives an array as output where first element is always 1 and second element gives dy/dt in terms of y and t. The reason it gives 1 as the first element is because my ODE solvers were made for 2 dependent variables and this has only 1. All three methods seem stable for this equation. The difference between analytical solution and solution provided by each method don't seem to be differentmuch. However, Euler's method is a bit off in the beginning where we can say it is less stable.
 
 
  \begin{center}

@@ -129,6 +129,6 @@ plt.xlabel("Temperature in Kelvin")
 plt.ylabel("Number densities in g/cm^3")
 for i in range(9):
       plt.plot(Ti,n[i],"x",label="N"+str(i+1))
-plt.legend(bbox_to_anchor=(1.1, 1),loc='upper center')
-plt.savefig("/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/Hw_3/Images/pb2")
+plt.legend(bbox_to_anchor=(1.05, 1),loc='upper center')
+plt.savefig("/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/Hw_3/Latex/Images/pb2")
         

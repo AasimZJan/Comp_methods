@@ -29,14 +29,13 @@
 \vspace{1.5em}
 
 
-\emph{\scriptsize{Note: To solve these problems I had to make a modified $RK-4$method which is in $Hw_4$ directory as $RK.py$}}
+\emph{\scriptsize{Note: To solve these problems I had to make a modified RK$-4$method which is in $Hw_4$ directory as $RK.py$. The reason is because we have to set dp/dr=0}}
 
 \vspace{0.5em}
 \textbf{Problem 1}
 \vspace{1.5em}
 
-
-This function returns an array where the first element is dP/dr (non relativistic hydrostatic equation)and second one is dM/dr. The variables of the returned functions are P, $M_{enc}$ and r.
+I have defined one function(\textbf{func(k1,k2)}) in the code which returns an array where the first element is dP/dr (non relativistic hydrostatic equation)and second one is dM/dr. The variables of the returned functions are P, $M_{enc}$ and r.
     The arguments of this function are:
       \vspace{0.2em}
       
@@ -60,10 +59,10 @@ This function returns an array where the first element is dP/dr (non relativisti
           \vspace{0.2em}
         \emph{Note: Units given as arguments should be in CGS units.}
   
-  \vspace{0.2em}
+  \vspace{2.0em}
   
-
   
+ \textbf{Approach for getting $M_{enc}$V/s radii plots}
 
  
  We have been asked to solve non relativistic hydrostatic equation for given density range and plot $M_{enc}$ V/s r. I have chosen the density values to be $[10^{4}, 5*10^{4}, 10^{5}, 5*10^{5},10^{6}]$. The max radius is $10^{10}$ cm and the step size is $10^{6} $cm. 
@@ -110,7 +109,7 @@ This function returns an array where the first element is dP/dr (non relativisti
   \clearpage
 \textbf{Approach for getting M of the star v/s r of the star graph}
 
-I started with $1*10^{4}g/cm^{3}$ and kept on add $5*10^{4}$ till I reached $99*10^{4}g/cm^{3}$. This gave me 33 data points for density. For each density and called the $RK-4$ to get Mass and radius. Then I plotted them to get this plot.
+I started with $1*10^{4}g/cm^{3}$ and kept on adding $5*10^{4}$ till I reached $99*10^{4}g/cm^{3}$. This gave me 33 data points for density. For each density I the $RK-4$ to get Mass and radius. Then I plotted them to get this plot.
 
 \begin{center}
 \includegraphics[scale=0.5]{Images/Mr_pb1h}
@@ -119,10 +118,18 @@ I started with $1*10^{4}g/cm^{3}$ and kept on add $5*10^{4}$ till I reached $99*
 \end{center}
 
 \clearpage
+
+
+
+
+
+
+
+
 \vspace{1.5em}
 \textbf{Problem 2}\vspace{1.5em}
 
-This function returns an array where the first element is dP/dr (TOV) and second one is dM/dr. The variables of the returned functions are P, $M_{enc}$ and r.
+I have defined one function(\textbf{func(G,c,l)}) in the code which returns an array where the first element is dP/dr (TOV) and second one is dM/dr. The variables of the returned functions are P, $M_{enc}$ and r.
     The arguments of this function are:
       \vspace{0.2em}
       
@@ -195,13 +202,20 @@ This function returns an array where the first element is dP/dr (TOV) and second
  \clearpage
 \textbf{Approach for getting M of the star v/s r of the star graph}
 
-I started with $1*10^{14}g/cm^{3}$ and kept on add $5*10^{14}$ till I reached $99*10^{14}g/cm^{3}$. This gave me 33 data points for density. For each density and called the $RK-4$ to get Mass and radius. Then I plotted them to get this plot.
+I started with $1*10^{14}g/cm^{3}$ and kept on adding $5*10^{14}$ till I reached $99*10^{14}g/cm^{3}$. This gave me 33 data points for density. For each density and called the $RK-4$ to get Mass and radius. Then I plotted them to get this plot.
 
 \begin{center}
 \includegraphics[scale=0.5]{Images/Mr_pb2h}
 \\*
 \textbf{Figure 1b}: M first increases then decreases as r increases
 \end{center}
+
+
+
+
+
+
+
 
 \clearpage
 \textbf{Problem 3}\vspace{1.5em}
