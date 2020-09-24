@@ -5,10 +5,18 @@ Spyder Editor
 This is a temporary script file.
 """
 #%%
+###--------------------------------------functions------------------------------------------------------
 
-import math                                #libraries
-import matplotlib.pyplot as plt
+
 def euler(x_0,y_0,f,h,k):
+    """ This function call euler method for solving ODE. The arguments are:
+        x_0=initial x value
+        y_0=initial y value
+        f=function of x,y,t
+        h=step size
+        k=number of times
+        It returns x,y,t values in that order
+    Note: Dont't set initial value to 0 but to something close to 0"""
     y=[]
     x=[]
     j=[]
@@ -23,6 +31,15 @@ def euler(x_0,y_0,f,h,k):
         t=t+h
     return(x,y,j)
 def heun(x_0,y_0,f,h,k,p=10):
+    """ This function call Heun's method for solving ODE. The arguments are:
+        x_0=initial x value
+        y_0=initial y value
+        f=function of x,y,t
+        h=step size
+        k=number of times
+        p=picard's iteration (Default value 10)
+        It returns x,y,t values in that order
+    Note: Dont't set initial value to 0 but to something close to 0"""
     yh=[]
     xh=[]
     j=[]
@@ -41,6 +58,14 @@ def heun(x_0,y_0,f,h,k,p=10):
         t=t+h
     return(xh,yh,j)
 def rk(x_0,y_0,f,h,k):
+    """ This function call RK-4 method for solving ODE. The arguments are:
+        x_0=initial x value
+        y_0=initial y value
+        f=function of x,y,t
+        h=step size
+        k=number of times
+        It returns x,y,t values in that order
+    Note: Dont't set initial value to 0 but to something close to 0"""
     yr=[]
     xr=[]
     j=[]
