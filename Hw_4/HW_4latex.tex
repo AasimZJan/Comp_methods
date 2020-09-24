@@ -27,7 +27,13 @@
 \vspace{1.5em}
 
 \vspace{1.5em}
-\textbf{Problem 1}\vspace{1.5em}
+
+
+\emph{\scriptsize{Note: To solve these problems I had to make a modified $RK-4$method which is in $Hw_4$ directory as $RK.py$}}
+
+\vspace{0.5em}
+\textbf{Problem 1}
+\vspace{1.5em}
 
 
 This function returns an array where the first element is dP/dr (non relativistic hydrostatic equation)and second one is dM/dr. The variables of the returned functions are P, $M_{enc}$ and r.
@@ -56,7 +62,9 @@ This function returns an array where the first element is dP/dr (non relativisti
   
   \vspace{0.2em}
   
- \textbf{Approach}
+
+  
+
  
  We have been asked to solve non relativistic hydrostatic equation for given density range and plot $M_{enc}$ V/s r. I have chosen the density values to be $[10^{4}, 5*10^{4}, 10^{5}, 5*10^{5},10^{6}]$. The max radius is $10^{10}$ cm and the step size is $10^{6} $cm. 
  
@@ -96,9 +104,19 @@ This function returns an array where the first element is dP/dr (non relativisti
 \columnbreak
        \includegraphics[scale=0.3]{Images/Mr_pb1_4}
 \end{multicols}
-\textbf{Figure 1}: It is observed maximum mass in reached at lesser radius as density is increased.
+\textbf{Figure 1a}: It can be observed that as the density increased we have smaller radii.
 \end{center}
 \vspace{0.2em}
+  \clearpage
+\textbf{Approach for getting M of the star v/s r of the star graph}
+
+I started with $1*10^{4}g/cm^{3}$ and kept on add $5*10^{4}$ till I reached $99*10^{4}g/cm^{3}$. This gave me 33 data points for density. For each density and called the $RK-4$ to get Mass and radius. Then I plotted them to get this plot.
+
+\begin{center}
+\includegraphics[scale=0.5]{Images/Mr_pb1h}
+\\*
+\textbf{Figure 1b}: M decreases as r increases
+\end{center}
 
 \clearpage
 \vspace{1.5em}
@@ -120,51 +138,72 @@ This function returns an array where the first element is dP/dr (TOV) and second
   
   \vspace{0.2em}
   
- \textbf{Approach}
+ \textbf{Approach for getting $M_{enc}$V/s radii plots}
  
  We have been asked to solve TOV equation for given density range and plot $M_{enc}$ V/s r. I have chosen the density values to be $[10^{14}, 5*10^{14}, 10^{15}, 5*10^{15},10^{16}]$. The max radius is 20km and the step size is 10 m. 
  
  \begin{center}
 \begin{multicols}{2}
 	\begin{center}
-        \includegraphics[scale=0.3]{Images/Pr_pb2_0}
+        \includegraphics[scale=0.4]{Images/Pr_pb2_0}
         \end{center}
 \columnbreak
-       \includegraphics[scale=0.3]{Images/Mr_pb2_0}
+\begin{center}
+       \includegraphics[scale=0.4]{Images/Mr_pb2_0}
+       \end{center}
 \end{multicols}
 \begin{multicols}{2}
 	\begin{center}
-        \includegraphics[scale=0.3]{Images/Pr_pb2_1}
+        \includegraphics[scale=0.4]{Images/Pr_pb2_1}
         \end{center}
 \columnbreak
-       \includegraphics[scale=0.3]{Images/Mr_pb2_1}
+	\begin{center}
+       \includegraphics[scale=0.4]{Images/Mr_pb2_1}
+       \end{center}
 \end{multicols}
 \begin{multicols}{2}
 	\begin{center}
-        \includegraphics[scale=0.3]{Images/Pr_pb2_2}
+        \includegraphics[scale=0.37]{Images/Pr_pb2_2}
         \end{center}
 \columnbreak
-       \includegraphics[scale=0.3]{Images/Mr_pb2_2}
+	\begin{center}
+       \includegraphics[scale=0.37]{Images/Mr_pb2_2}
+       \end{center}
 \end{multicols}
 \begin{multicols}{2}
 	\begin{center}
-        \includegraphics[scale=0.3]{Images/Pr_pb2_3}
+        \includegraphics[scale=0.4]{Images/Pr_pb2_3}
         \end{center}
 \columnbreak
-       \includegraphics[scale=0.3]{Images/Mr_pb2_3}
+\begin{center}
+       \includegraphics[scale=0.4]{Images/Mr_pb2_3}
+       \end{center}
 \end{multicols}
 \begin{multicols}{2}
 	\begin{center}
-        \includegraphics[scale=0.3]{Images/Pr_pb2_4}
+        \includegraphics[scale=0.4]{Images/Pr_pb2_4}
         \end{center}
 \columnbreak
-       \includegraphics[scale=0.3]{Images/Mr_pb2_4}
+	\begin{center}
+       \includegraphics[scale=0.4]{Images/Mr_pb2_4}
+       \end{center}
 \end{multicols}
 \textbf{Figure 2}: It is observed maximum mass in reached at lesser radius as density is increased.
 \end{center}
 \vspace{0.2em}
 
+ \clearpage
+\textbf{Approach for getting M of the star v/s r of the star graph}
 
+I started with $1*10^{14}g/cm^{3}$ and kept on add $5*10^{14}$ till I reached $99*10^{14}g/cm^{3}$. This gave me 33 data points for density. For each density and called the $RK-4$ to get Mass and radius. Then I plotted them to get this plot.
+
+\begin{center}
+\includegraphics[scale=0.5]{Images/Mr_pb2h}
+\\*
+\textbf{Figure 1b}: M first increases then decreases as r increases
+\end{center}
+
+\clearpage
 \textbf{Problem 3}\vspace{1.5em}
 
 In the code for Problem 3 I have defined one function. It is:
@@ -191,26 +230,33 @@ This function returns an array where the first element is dP/dr (TOV) and second
   
  \textbf{Approach}
   
-We have been asked to find mass of the Star given radius and using the TOV equation. I approached this problem by assuming density to be $10^(16)g/cm^3$ and then using the TOV equation and $dM_{enc}/dr $ and RK-4 solver to find the values of M and P at different R. Then I found the maximum mass in the returned mass array. I made the code run till $r=13.02 km$ with a step size of 100 cm. Here are the graphs and output:
-
+We have been asked to find mass of the Neutron star given radius and using the TOV equation. 
+\\*
+(I did this earlier and I wanted to keep it just to show what assuming a density gives you as the answer.)
+\scriptsize{I approached this problem by assuming density to be $10^(16)g/cm^3$ and then using the TOV equation and $dM_{enc}/dr $ and RK-4 solver to find the values of M and P at different R. Then I found the maximum mass in the returned mass array. I made the code run till $r=13.02 km$ with a step size of 100 cm. Here are the graphs and output:} 
 
 \emph{\small{}}
 \begin{center}
 \begin{multicols}{2}
 	\begin{center}
-        \includegraphics[scale=0.3]{Images/Pr_pb3}
+        \includegraphics[scale=0.4]{Images/Pr_pb3}
         \end{center}
 \columnbreak
-       \includegraphics[scale=0.3]{Images/Mr_pb3}
+	\begin{center}
+       \includegraphics[scale=0.4]{Images/Mr_pb3}
+       \end{center}
 \end{multicols}
 \textbf{Figure }: The graphs for problem 3
 \end{center}
 \vspace{0.2em}
+
+\clearpage
+\normalsize{Here is what i did to get 0.7 times mass of the sun as answer. I imported the M and R array from problem 2, found the two R points between which 13.02km lies and then interpolated(linear) between those two points to get the mass of a star at radii 13.02km.}
 	\begin{center}
-        \includegraphics[scale=0.2]{Images/Output_pb3}
+        \includegraphics[scale=0.5]{Images/Output_pb2}
           \vspace{0.2em}
           
-        \textbf{Figure 3}: The output for problem 3. It is the bottom most value. It reads 0.94785.
+        \textbf{Figure 3}: The output for the code for problem 3.
         \end{center}
         
      
