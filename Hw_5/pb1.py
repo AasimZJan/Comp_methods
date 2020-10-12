@@ -15,9 +15,9 @@ import matplotlib.pyplot as plt
 
 #----------------------------------------------------Extracting Data--------------------------------------------
 data0=np.load("galaxies0.npy")
-data0=np.array([data0[i] for i in range(2)])
+data0=np.array([data0[i] for i in range(20)])
 data=np.load("galaxies1.npy")
-data=np.array([data[i] for i in range(2)])
+data=np.array([data[i] for i in range(20)])
 data1=[[0,0] for i in range(len(data0))]
 
 
@@ -110,10 +110,10 @@ def accel(point1,point2):
     if len(point2)==2:
         point2=np.append(point2,1)
     a=(G*point2[2]*10**(12))/((dist)**2+smooth**2)
-    print(np.sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2),point2)
-    if (np.sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2)) <0.35:
+#    print(np.sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2),point2)
+    if (np.sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2)) <0.15:
         a=0
-        print(a)
+#    print([(a*((point2[0]-point1[0])*(3.086*10**19))/dist),((a*(point2[1]-point1[1])*(3.086*10**19))/dist)])
     return([(a*((point2[0]-point1[0])*(3.086*10**19))/dist),((a*(point2[1]-point1[1])*(3.086*10**19))/dist)])
 
 
@@ -129,7 +129,7 @@ def accel(point1,point2):
 o=1 
 e=[]
 f=[]       
-while o <101:
+while o <11:
     print("year",o)
     h=o*3600*24*365*100000000    
     for r in range(len(data)):
@@ -246,16 +246,20 @@ while o <101:
         data1[r][1]=2*data[r][1]-data0[r][1]+ay*h**2
     o=o+1
     data1=np.array(data1)
+    data0=np.array(data0)
+    data=np.array(data)
     d=[]
-    for i in range(len(data)):
-        if data1[i][0]>10 or data1[i][0]<0 or data1[i][1]>10 or data1[i][1]<0:
-            d.append(i)
-            print(i)
-    for i in d:
-        print(i)
+    for i in range(len(data1)):
+        if data1[i][0]>10.0 or data1[i][0]<0.0 or data1[i][1]>10.0 or data1[i][1]<0.0:
+            d.append(data1[i])
+#            print(i,data1[i],data0[i])
+    for k in range(len(d)):
+        i=np.argwhere(data1==d[k])
+            
         data= np.delete(data,i,0)
         data0=np.delete(data0,i,0)
         data1=np.delete(data1,i,0)
+        #print(i,data1[i],data0[i])
     f.append(data1[0])
     e.append(data1[1])
     xi=data1[:,0]
