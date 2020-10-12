@@ -15,9 +15,9 @@ import matplotlib.pyplot as plt
 
 #----------------------------------------------------Extracting Data--------------------------------------------
 data0=np.load("galaxies0.npy")
-data0=np.array([data0[i] for i in range(20)])
+#data0=np.array([data0[i] for i in range(20)])
 data=np.load("galaxies1.npy")
-data=np.array([data[i] for i in range(20)])
+#data=np.array([data[i] for i in range(20)])
 data1=[[0,0] for i in range(len(data0))]
 
 
@@ -102,18 +102,14 @@ def accel(point1,point2):
 
     '''
     G=4.3*10**(-9) #Mpc⋅M⊙^–1⋅(km/s)^2
-    #print(point1,point2)
     epi=(655)**(-1/3)*(4*3.14*(.23**3)/3)**(1/3)
-    dist=(3.086*10**19)*((np.sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2)))  #km
     smooth=epi*(3.086*10**19)
-    #print(dist)
+    dist=(3.086*10**19)*((np.sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2)+epi**2))  #km
     if len(point2)==2:
         point2=np.append(point2,1)
-    a=(G*point2[2]*10**(12))/((dist)**2+smooth**2)
-#    print(np.sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2),point2)
+    a=(G*point2[2]*10**(12))/((dist)**2)
     if (np.sqrt((point1[0]-point2[0])**2+(point1[1]-point2[1])**2)) <0.15:
         a=0
-#    print([(a*((point2[0]-point1[0])*(3.086*10**19))/dist),((a*(point2[1]-point1[1])*(3.086*10**19))/dist)])
     return([(a*((point2[0]-point1[0])*(3.086*10**19))/dist),((a*(point2[1]-point1[1])*(3.086*10**19))/dist)])
 
 
@@ -252,14 +248,13 @@ while o <11:
     for i in range(len(data1)):
         if data1[i][0]>10.0 or data1[i][0]<0.0 or data1[i][1]>10.0 or data1[i][1]<0.0:
             d.append(data1[i])
-#            print(i,data1[i],data0[i])
     for k in range(len(d)):
         i=np.argwhere(data1==d[k])
             
         data= np.delete(data,i,0)
         data0=np.delete(data0,i,0)
         data1=np.delete(data1,i,0)
-        #print(i,data1[i],data0[i])
+        print(i,data1[i],data0[i])
     f.append(data1[0])
     e.append(data1[1])
     xi=data1[:,0]
@@ -269,11 +264,5 @@ while o <11:
     data0=data 
     data=data1
        
-#%%
-a=[[1,2],[1,4],[5,6]]     
-a.remove(a[2])
-    if dist<=1.6*10**23:
-        a=(G*point2[2]*10**(12))/(dist+1.6*10**23)**2
-    else:
     
     
