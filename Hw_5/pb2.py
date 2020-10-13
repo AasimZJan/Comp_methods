@@ -79,7 +79,6 @@ for k in range(1000):
 plt.contourf(X, Y, p, 20, cmap='RdGy')
 cbar=plt.colorbar();
 cbar.set_label("Potenial")
-
 plt.xlabel("X coordinate in Mpc")
 plt.ylabel("Y coordinate in Mpc")
 plt.savefig("Images/pb2n")
