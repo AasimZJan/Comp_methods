@@ -26,9 +26,9 @@ x = np.linspace(0, 10, 100)
 y = np.linspace(0, 10, 100)
 
 X, Y = np.meshgrid(x, y)
-p=np.array([[0 for i in range(100)]for j in range(100)])
-p1=np.array([[0 for i in range(100)]for j in range(100)])
-R=np.array([[0 for i in range(100)]for j in range(100)])
+p=np.array([[0 for i in range(100)]for j in range(100)])    #p[k]
+p1=np.array([[0 for i in range(100)]for j in range(100)])   #p[k+1]
+R=np.array([[0 for i in range(100)]for j in range(100)])    #residual
 
 
 
@@ -37,7 +37,7 @@ R=np.array([[0 for i in range(100)]for j in range(100)])
 #location of each disk
 g1=[7,7,400]
 g2=[8,2,255]
-G=4.3*10**(-9)        #Mpc⋅M⊙^–1⋅(km/s)^2
+G=4.3*10**(-9)        #in Mpc⋅M⊙^–1⋅(km/s)^2
 
 
 
@@ -56,20 +56,26 @@ for k in range(1000):
             
             
             
-            #if statments to check where the point lies and finding the potential accordingly
+            #if statments to check where the point lies and finding the density accordingly
             if a<=9:
-                #this statement checks if it is inside the disk at (7,7) and finds potential if it is
+                #this statement checks if it is inside the disk at (7,7) and finds density  if it is
                 density=400*(10**12)/(math.pi*9)
             if b<=4:            
-                #this statement checks if it is inside the disk at (8,2) and finds potential if it is
+                #this statement checks if it is inside the disk at (8,2) and finds density  if it is
                 density=255*(10**12)/(math.pi*4)
                 
             if a>9 and b >4:
-                #this statement checks if the point is outside the two disks and finds potential if it is
+                #this statement checks if the point is outside the two disks and finds density  if it is
                 density=0
+            #Residual
             R[i][j]=0.25*(p[i+1][j]+p[i-1][j]+p[i][j-1]+p[i][j+1]-(0.1**2)*4*math.pi*G*density)-p[i][j]
+            #p[k+1]
             p1[i][j]=R[i][j]+p[i][j]
     p=p1
+    
+    
+    
+#---------------------------------------Plotting-------------------------------------------------------------
 plt.contourf(X, Y, p, 20, cmap='RdGy')
 cbar=plt.colorbar();
 cbar.set_label("Potenial")
