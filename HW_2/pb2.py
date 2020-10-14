@@ -41,8 +41,10 @@ class matrix:
                     m.append(sum)
                 n.append(m)
             print('The product is',n)
+        
         else:
             print("multiplication not defined")
+        return(n)
     ###
     ###Transpose
     def tran(self):                                                            #I will make my columns into rows
@@ -147,7 +149,7 @@ class matrix:
 #test
 o=[[2,3],[5,6]]
 m1=matrix(o)
-#m1.Inv()
+m1.Inv()
 m1.LU()
 m1.Det()
 

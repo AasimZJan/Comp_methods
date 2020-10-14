@@ -1,0 +1,1850 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'Menlo'; font-size:12pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import math                                    #for the log function</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import matplotlib.pyplot as plt                #for plotting</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> #defining constants</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Function returns V_c**2(where V_c is circular velocity)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def y(r,c,r_2,v_2): #v==vc**2                  #Arguments(Radial distance=r, concentration factor=c, </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>                                                #Virial radius=r_2, Speed at r_2=v_2 )</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     x=r/r_2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=math.log(1+c*x)-((c*x)/(1+c*x))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     den=math.log(1+c)-(c/(1+c))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=(((v_2)**2)/x)*(num/den)                   #the equation for v_c**2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(v)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###function returns Mass enclosed              #Arguments(Radial distance=r, V_c=v, Gravitational constant=G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc(r,v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=r*v</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(num/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc_1(v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=v*((1*u.s**2)/(1*u.km**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=G/(1*(u.parsec*u.km**2)/(u.Msun*u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     def y(x):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>         return(x*v/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(y)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec                              #initialising to get Menc and V_c values at different r and plotting them</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=10*u.kiloparsec                              #increments in r</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Me_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> for i in range(1000):                          #change range r to plot for different values</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_m.append(r/(1*u.kiloparsec))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_m.append(v/(1*u.km**2/u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Men=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Me_m.append(Men/(1*u.Msun))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r=r+a</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.title(&quot;Variation of Mass enclosed with distance&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.xaxis(&quot;Radial distance in kiloparsec&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.yaxis(&quot;Mass enclosed in Msun&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.plot(r_m,Me_m)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Total mass of the  halo</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=300*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(&quot;The mass of the Halo is&quot;,M)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec                           #take whatever you want</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec                              #point at which you wann calculate</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=(r-Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> b=(r+Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r=midpoint(Menc_1(v,G),a,b,2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r1=Menc(r+Del_r,y(r+Del_r,c,r_2,v_2),G)-Menc(r-Del_r,y(r-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###dM/dr</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def df(r,h):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Del_r=5*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M1=Menc(r+Del_r,y(r,c,r_2,v_2),G)-Menc(r-Del_r,y(r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M2=Menc(r+h+Del_r,y(r+h+Del_r,c,r_2,v_2),G)-Menc(r+h-Del_r,y(r+h-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     print(M2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return((M2-M1)/h)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> h=0.00001*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(df(r,h))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Traceback <span style=" color:#4682b4;">(most recent call last)</span>:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#4682b4;">  File </span><span style=" color:#006400;">&quot;&lt;ipython-input-535-3461ad321e60&gt;&quot;</span><span style=" color:#4682b4;">, line </span><span style=" color:#006400;">50</span><span style=" color:#4682b4;">, in </span><span style=" color:#9400d3;">&lt;module&gt;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#8b0000;">    plt.xaxis(&quot;Radial distance in kiloparsec&quot;)</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#8b0000;">AttributeError:</span> 'module' object has no attribute 'xaxis'</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="data:image/png;base64,
+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
+" /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">536</span><span style=" color:#000080;">]:</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">536</span><span style=" color:#000080;">]:</span> from astropy import units as u                 #for units</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> from pb_1 import midpoint                       #integrator</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import math                                    #for the log function</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import matplotlib.pyplot as plt                #for plotting</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> #defining constants</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Function returns V_c**2(where V_c is circular velocity)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def y(r,c,r_2,v_2): #v==vc**2                  #Arguments(Radial distance=r, concentration factor=c, </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>                                                #Virial radius=r_2, Speed at r_2=v_2 )</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     x=r/r_2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=math.log(1+c*x)-((c*x)/(1+c*x))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     den=math.log(1+c)-(c/(1+c))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=(((v_2)**2)/x)*(num/den)                   #the equation for v_c**2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(v)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###function returns Mass enclosed              #Arguments(Radial distance=r, V_c=v, Gravitational constant=G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc(r,v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=r*v</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(num/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc_1(v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=v*((1*u.s**2)/(1*u.km**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=G/(1*(u.parsec*u.km**2)/(u.Msun*u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     def y(x):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>         return(x*v/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(y)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec                              #initialising to get Menc and V_c values at different r and plotting them</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=10*u.kiloparsec                              #increments in r</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Me_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> for i in range(1000):                          #change range r to plot for different values</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_m.append(r/(1*u.kiloparsec))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_m.append(v/(1*u.km**2/u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Men=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Me_m.append(Men/(1*u.Msun))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r=r+a</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.title(&quot;Variation of Mass enclosed with distance&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.xlabel(&quot;Radial distance in kiloparsec&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.ylabel(&quot;Mass enclosed in Msun&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.plot(r_m,Me_m)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Total mass of the  halo</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=300*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(&quot;The mass of the Halo is&quot;,M)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec                           #take whatever you want</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec                              #point at which you wann calculate</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=(r-Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> b=(r+Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r=midpoint(Menc_1(v,G),a,b,2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r1=Menc(r+Del_r,y(r+Del_r,c,r_2,v_2),G)-Menc(r-Del_r,y(r-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###dM/dr</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def df(r,h):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Del_r=5*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M1=Menc(r+Del_r,y(r,c,r_2,v_2),G)-Menc(r-Del_r,y(r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M2=Menc(r+h+Del_r,y(r+h+Del_r,c,r_2,v_2),G)-Menc(r+h-Del_r,y(r+h-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     print(M2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return((M2-M1)/h)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> h=0.00001*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(df(r,h))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The mass of the Halo is', &lt;Quantity 1.02341367e+09 kpc solMass / pc&gt;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The value from midpoint rule is', &lt;Quantity 5.30196164e+08&gt;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">74763158.7796 kpc solMass / pc</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2.17435424078e+12 solMass / pc</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAYUAAAEWCAYAAACJ0YulAAAACXBIWXMAAAsS
+AAALEgHS3X78AAAAO3pUWHRTb2Z0d2FyZQAACJnLTSwpyMkvyclMUihLLSrO
+zM9TMNIz0jPWUcgoKSmw0tfPhSvQyy9K1wcApzcQ854efX0AACAASURBVHic
+7N15QBR1/wfw9wJyL/chsNwgcqOAVyrmfYWPV2qeeeBRvzSfSqtHMx+zS8vH
+NMsyTVIxtSdvM01NE1NUNE+Q+77vc9n9/P4g5xFhWVSWaz+vf2B3Zmc+MwPz
+3vnOzHdERERgjDHGAGi0dgGMMcbaDg4FxhhjAg4FxhhjAg4FxhhjAg4Fxhhj
+Ag4FxhhjAg6Fdig5ORmGhoaQyWRP9fm1a9di7ty5zVyVcv/9739hb28PQ0ND
+XL9+vcXn35oSExMhEolQU1PTYvNctWoVpk2b9kzT2LVrF4YOHapw+NmzZyGR
+SJ56+o/W+Kx/16x5cCio2LBhw7By5cp67x88eBCdO3d+qp2Eg4MDSktLoamp
+qXTchv5p33nnHXz77bdPPN9n9cYbb2DTpk0oLS1Ft27d6g0XiUSwtraus05q
+ampgZWUFkUjUkqWyv02dOhUnT54UXotEIjx48EAl82rq3/WOHTvQt29fldTA
+OBRUbtasWQgPD8fj9wiGh4dj6tSp0NLSeqLpteQ3zeaWlJQEb2/vRscxMTHB
+8ePHhdfHjh2DqampqktjjP2NQ0HF/vGPfyA/Px/nz58X3isoKMCRI0cwY8YM
+AMDRo0fRrVs3GBkZwd7eHqtWrRLGfdjssG3bNjg4OGDgwIH1miK2b98OT09P
+iMViuLi44OuvvwYAlJWVYcSIEUhPT4ehoSEMDQ2Rnp5er1nh0KFD8Pb2homJ
+CQYMGIC7d+8Kw5ycnLBu3Tr4+fnB2NgYkyZNQmVlZYPLKpfLsWbNGjg6OsLK
+ygozZsxAUVERqqqqhGYBf39/uLq6Klxf06dPx86dO4XXO3fuFNbTQ4qWFwBy
+c3MxevRomJiYwMzMDP369YNcLgcAfPzxx7Czs4NYLIaHhwdOnz7dYA1VVVV4
+44034ODgAGtrayxYsAAVFRUA/nfktX79elhZWcHGxgbbt28XPltRUYF//vOf
+cHR0hLGxMfr27St89lHp6ekIDQ2FmZkZ3Nzc8M033wjDLl++jKCgIBgZGcHa
+2hpLly4Vhl26dAl9+vSBiYkJ/P39cfbsWWFYQkICQkJCIBaLMWTIEOTm5ipc
+zyEhIThw4AAA4MKFCxCJRDh27BgA4NSpUwgICABQ91t5//79AQD+/v4wNDTE
+3r17hekpWh+Pa6zGx/+ud+zYARcXF4jFYjg7O2PXrl24e/cuFixYgMjISBga
+GsLExARA0/6Hvv/+ezg4OMDCwgIffPCBMFwmk2Ht2rVwdXWFWCxGYGAgUlJS
+AAD37t3DkCFDYGZmBg8PD/z4448Kl63DIKZyc+fOpTlz5givv/rqK/L39xde
+nzlzhm7evEkymYxu3LhBVlZW9N///peIiBISEggATZ8+nUpLS6m8vFx4TyqV
+EhHRkSNH6MGDBySXy+ns2bOkp6dHV69eFaZtZ2dXp5733nuPpk6dSkRE9+/f
+J319fTp58iRVV1fTxx9/TK6urlRVVUVERI6OjhQcHExpaWmUl5dHXbt2pS1b
+tjS4nNu2bSNXV1eKi4ujkpISGjt2LE2bNk0YDoBiY2MVricA9Ndff5GVlRUV
+FBRQQUEBWVlZ0V9//UWP/qk2trzLly+n+fPnU3V1NVVXV9Pvv/9Ocrmc7t27
+RxKJhNLS0oT1+uDBgwbrWLx4Mb3wwguUl5dHxcXFNHr0aFq+fLmwPjU1NWnF
+ihVUXV1NR48eJT09PcrPzyciokWLFlFISAilpqZSTU0N/fHHH1RZWVlvm/Xv
+358WLlxIFRUVdP36dbKwsKBTp04REVGvXr1o586dRERUUlJCkZGRRESUmppK
+ZmZmdPToUZLJZHTy5EkyMzOj7Oxs4XOvv/46VVZW0rlz58jQ0FDYzo9bsWIF
+vfrqq0RE9MEHH5CLiwu99dZbwrDXXnuNiIi2b99Ozz33nMJtqGx9PK6xGh9d
+R6WlpSQWi+nevXtERJSenk63bt1qsKaHdSj7H5o7dy6Vl5dTdHQ0aWtr0507
+d4iI6JNPPiEfHx+6d+8eyeVyio6OptzcXCotLSWJRELfffcdSaVSunr1Kpmb
+mwt1dFTtMhRefvllsrS0JG9vb6Xjnjt3jrp160aampq0b98+4f3r169Tr169
+yMvLi3x9fSkiIkJl9Z4/f56MjIyovLyciIj69OlDn332mcLxFy9eTEuWLCGi
+//1Bx8XFCcMf38E8bsyYMbRhwwYiUh4Kq1evpokTJwrDZDIZ2dra0pkzZ4io
+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
+qSuSmJgo9DoZFRWF1157rdFxd+/e/UQ1N6c+ffo80fgDBgxo8GHtI0eOFNa9
+oaFhs9TGGIcCe2J6enqIjo7GrVu3YGZmhs2bNz/1tFavXo3Bgwc3Y3VAUFAQ
+Nm7cqHB4a4fCxYsXm2U6x44dg4mJSbNMSxmZTNYi82Gtj0OBPZPevXsLHW6V
+lpZi0KBB6N69O3x9fXHw4EFhvA8++AAeHh4YPHiwcJcuUPcoYPXq1QgODoaP
+jw/CwsKU9gN/9epV+Pv7o3fv3nWC6ezZs8IzF86dO4eAgAAEBASgW7duKCkp
+wfLly3H+/HkEBATg888/R2JiIvr164fu3buje/fuwk777NmzGDBggPBMg6lT
+pwo1XblyBX369IG/vz969OiBkpISyGQyvPnmmwgODoafnx++/vrrBut++K2+
+sek3RC6XY+bMmfjXv/4FAHByckJubm6dcYgIb775Jnx8fODr64u9e/cK8+rf
+vz/Gjh0LLy8vLFiwAHK5HACwcOFCBAUFwdvbG++9954wLScnJ6xevRp9+/bF
+vn37sHHjRnh5ecHPzw+TJ08GAJSVlWH27NkIDg5Gt27dhG0uk8nwxhtvwNfX
+F35+fvjiiy8a3ZasDXnWu/OY+jEwMCCi2udUTJgwgY4fP05Etd0XFxUVERFR
+Tk4Oubq6klwup6ioKPLx8aGysjIqKioiV1dX+vTTT4mIaObMmbRv3z4iIuEu
+TiKiadOm0aFDh+qN8yhfX186e/YsERG98cYbQlfEj971PHr0aLpw4QIREZWU
+lJBUKq0znIiorKyMKioqiIgoJiaGAgMDhekYGRlRSkoKyWQy6tWrF50/f56q
+qqrI2dmZLl++TES13VxLpVL6+uuv6d///jcREVVWVlJgYCDFx8crXH+Kpv+4
+kJAQioyMpMmTJ9e5G9/R0ZFycnLqTHP//v00ePBgqqmpoczMTLK3t6f09HQ6
+c+YM6ejoUFxcHNXU1NDgwYPrrfeamhoKCQmhGzduCNP/+OOPhfnZ2NgIdxMX
+FBQQEdHbb79N4eHhwnvu7u5UWlpKX375JY0bN07o8vrRbcvaNj5SYE+soqIC
+AQEBMDc3F54YBdR+S33nnXfg5+eHwYMHIy0tDVlZWTh//jzGjh0LfX19GBkZ
+Kex36syZM+jZsyd8fX3x22+/4fbt2wprKCoqQmFhIUJCQgAA06dPb3C85557
+DkuXLsXGjRtRWFgodMH8KKlUinnz5sHX1xcTJ07EnTt3hGE9evSARCKBhoYG
+AgICkJiYiPv378PGxgbBwcEAACMjI2hpaeHkyZPYuXMnAgIC0LNnT+Tl5SE2
+NrbRddnQ9Bsyf/58+Pj44N133210ehcuXMCUKVOgqakJa2trhISE4MqVK8K8
+XFxcoKmpiSlTpuDChQsAgB9//BHdu3dHt27dcPv27TrLP2nSJOF3Pz8/TJ06
+FT/88IOwHk+ePImPPvoIAQEBGDBgACorK5GcnIxTp05hwYIFwnhmZmaN1s3a
+Dg4F9sQenlNISkpCdXW10HSza9cu5OTk4OrVq4iOjoa1tTUqKysBKO++t7Ky
+EosWLcL+/fvx119/Yd68ecJnG0JETeoSePny5fj2229RUVGBXr164d69e/XG
++fzzz2FtbY0bN24gKiqCbh1kAAADKUlEQVRKeNwjAOjo6Ai/a2pqoqamRuG8
+iQhffPEFoqOjER0djYSEBAwdOrTR+hqafkP69OmDM2fONLpOHtagyOM1i0Qi
+JCQkYN26dTh9+jRu3ryJUaNG1ZmHgYGB8PvRo0fxyiuv4OrVqwgMDBTWxYED
+B4RlTk5OhqenZ5O3D2t7OBTYUzM2NsbGjRuxbt06SKVSFBUVwcrKCp06dcKZ
+M2eQlJQEAOjfvz/++9//oqKiAiUlJTh8+HC9aT3cEVlYWKC0tFTp1UYmJiYw
+NjYWvu3u2rWrwfHi4uLg6+uLZcuWISgoCPfu3YNYLEZJSYkwTlFREWxsbKCh
+oYHw8HClJ1W7du2K9PR04Rt4SUkJampqMGzYMGzZsgVSqRQAEBMTg7Kyskan
+1VRz5szByJEjMXHiRIXBAdSu671790ImkyEnJwe///670EPo5cuXkZCQALlc
+jr1796Jv374oLi6GgYEBjI2NkZWV1eDzC4Da8xkPnw/+ySefoLCwEKWlpRg2
+bBi++OILIYyuX78OABg6dCi++uorodb8/PxmWQ9M9eofSzP2BLp16wZ/f39E
+RERg6tSpeOGFFxAUFISAgAB07doVANC9e3dMmjQJAQEBcHR0RL9+/epNx8TE
+RGjCcXJyEppmGrN9+3bMnj0b+vr6CruD3rBhA86cOQNNTU14eXlhxIgR0NDQ
+gJaWFvz9/TFr1iwsWrQI48ePx759+/D888/X+XbcEG1tbezduxf/93//h4qK
+Cujp6eHUqVOYO3cuEhMT0b17dxARLC0t8fPPPzdhLTbN0qVLUVRUhOnTpysM
+wbFjxyIyMhL+/v4QiUT45JNP0LlzZ9y7dw+9e/fG8uXL8ddffwknnTU0NNCt
+Wzd4e3vDxcUFzz33XIPTlclkmDZtGoqKikBEeP3112FiYoIVK1ZgyZIl8PPz
+AxHByckJR44cwdy5cxETEwM/Pz906tQJ8+bNw6uvvtps64KpDveSypgaOHv2
+LNatW4cjR460dimsjePmI8YYYwI+UmCMMSbgIwXGGGMCDgXGGGMCDgXGGGMC
+DgXGGGMCDoX/3ygYBaNgFIwCOAAA+jE3nmYk4iAAAAAASUVORK5CYII=
+" /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">537</span><span style=" color:#000080;">]:</span> ls</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00008b;">Contents</span>/ pb2.py    pb3.py    pb_1.py   pb_1.pyc</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">538</span><span style=" color:#000080;">]:</span> cd ..</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods_hw</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">539</span><span style=" color:#000080;">]:</span> ls</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#00008b;">HW_2</span>/              <span style=" color:#00008b;">Hw_1</span>/              <span style=" color:#00008b;">Lam's Figure code</span>/ sites.docx</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">540</span><span style=" color:#000080;">]:</span> cd ..</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">541</span><span style=" color:#000080;">]:</span> cd Comp_methods/HW_2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/HW_2</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">542</span><span style=" color:#000080;">]:</span> ls</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The result of differentiation is', -1.0000000001396114)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The value from simpson rule is', 2.000000000001107)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The value from midpoint rule is', 2.000000822467294)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The value from trapezoid rule is', 1.999998355065688)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">HW_2latex.aux         HW_2latex.synctex.gz  pb3.py</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">HW_2latex.log         HW_2latex.tex         pb_1.py</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">HW_2latex.out         <span style=" color:#00008b;">Images</span>/               pb_1.pyc</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">HW_2latex.pdf         pb2.py</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">543</span><span style=" color:#000080;">]:</span> pwd</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#8b0000;">Out[</span><span style=" font-weight:600; color:#8b0000;">543</span><span style=" color:#8b0000;">]:</span> u'/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/HW_2'</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">544</span><span style=" color:#000080;">]:</span> from astropy import units as u                 #for units</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> from pb_1 import midpoint                       #integrator</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import math                                    #for the log function</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import matplotlib.pyplot as plt                #for plotting</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> #defining constants</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Function returns V_c**2(where V_c is circular velocity)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def y(r,c,r_2,v_2): #v==vc**2                  #Arguments(Radial distance=r, concentration factor=c, </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>                                                #Virial radius=r_2, Speed at r_2=v_2 )</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     x=r/r_2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=math.log(1+c*x)-((c*x)/(1+c*x))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     den=math.log(1+c)-(c/(1+c))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=(((v_2)**2)/x)*(num/den)                   #the equation for v_c**2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(v)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###function returns Mass enclosed              #Arguments(Radial distance=r, V_c=v, Gravitational constant=G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc(r,v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=r*v</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(num/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc_1(v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=v*((1*u.s**2)/(1*u.km**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=G/(1*(u.parsec*u.km**2)/(u.Msun*u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     def y(x):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>         return(x*v/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(y)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec                              #initialising to get Menc and V_c values at different r and plotting them</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=10*u.kiloparsec                              #increments in r</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Me_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> for i in range(1000):                          #change range r to plot for different values</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_m.append(r/(1*u.kiloparsec))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_m.append(v/(1*u.km**2/u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Men=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Me_m.append(Men/(1*u.Msun))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r=r+a</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.title(&quot;Variation of Mass enclosed with distance&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.xlabel(&quot;Radial distance in kiloparsec&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.ylabel(&quot;Mass enclosed in Msun&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.plot(r_m,Me_m)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.savefig(/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/HW_2/Images/pb2plot)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Total mass of the  halo</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=300*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(&quot;The mass of the Halo is&quot;,M)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec                           #take whatever you want</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec                              #point at which you wann calculate</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=(r-Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> b=(r+Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r=midpoint(Menc_1(v,G),a,b,2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r1=Menc(r+Del_r,y(r+Del_r,c,r_2,v_2),G)-Menc(r-Del_r,y(r-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###dM/dr</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def df(r,h):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Del_r=5*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M1=Menc(r+Del_r,y(r,c,r_2,v_2),G)-Menc(r-Del_r,y(r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M2=Menc(r+h+Del_r,y(r+h+Del_r,c,r_2,v_2),G)-Menc(r+h-Del_r,y(r+h-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     print(M2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return((M2-M1)/h)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> h=0.00001*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(df(r,h))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#4682b4;">  File </span><span style=" color:#006400;">&quot;&lt;ipython-input-544-6264b6f6236a&gt;&quot;</span><span style=" color:#4682b4;">, line </span><span style=" color:#006400;">53</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#8b0000;">    plt.savefig(/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/HW_2/Images/pb2plot)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">                ^</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#8b0000;">SyntaxError:</span> invalid syntax</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">545</span><span style=" color:#000080;">]:</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">545</span><span style=" color:#000080;">]:</span> from astropy import units as u                 #for units</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> from pb_1 import midpoint                       #integrator</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import math                                    #for the log function</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import matplotlib.pyplot as plt                #for plotting</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> #defining constants</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Function returns V_c**2(where V_c is circular velocity)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def y(r,c,r_2,v_2): #v==vc**2                  #Arguments(Radial distance=r, concentration factor=c, </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>                                                #Virial radius=r_2, Speed at r_2=v_2 )</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     x=r/r_2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=math.log(1+c*x)-((c*x)/(1+c*x))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     den=math.log(1+c)-(c/(1+c))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=(((v_2)**2)/x)*(num/den)                   #the equation for v_c**2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(v)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###function returns Mass enclosed              #Arguments(Radial distance=r, V_c=v, Gravitational constant=G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc(r,v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=r*v</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(num/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc_1(v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=v*((1*u.s**2)/(1*u.km**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=G/(1*(u.parsec*u.km**2)/(u.Msun*u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     def y(x):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>         return(x*v/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(y)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec                              #initialising to get Menc and V_c values at different r and plotting them</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=10*u.kiloparsec                              #increments in r</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Me_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> for i in range(1000):                          #change range r to plot for different values</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_m.append(r/(1*u.kiloparsec))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_m.append(v/(1*u.km**2/u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Men=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Me_m.append(Men/(1*u.Msun))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r=r+a</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.title(&quot;Variation of Mass enclosed with distance&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.xlabel(&quot;Radial distance in kiloparsec&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.ylabel(&quot;Mass enclosed in Msun&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.plot(r_m,Me_m)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.savefig(&quot;/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/HW_2/Images/pb2plot&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Total mass of the  halo</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=300*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(&quot;The mass of the Halo is&quot;,M)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec                           #take whatever you want</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec                              #point at which you wann calculate</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=(r-Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> b=(r+Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r=midpoint(Menc_1(v,G),a,b,2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r1=Menc(r+Del_r,y(r+Del_r,c,r_2,v_2),G)-Menc(r-Del_r,y(r-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###dM/dr</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def df(r,h):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Del_r=5*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M1=Menc(r+Del_r,y(r,c,r_2,v_2),G)-Menc(r-Del_r,y(r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M2=Menc(r+h+Del_r,y(r+h+Del_r,c,r_2,v_2),G)-Menc(r+h-Del_r,y(r+h-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     print(M2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return((M2-M1)/h)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> h=0.00001*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(df(r,h))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The mass of the Halo is', &lt;Quantity 1.02341367e+09 kpc solMass / pc&gt;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The value from midpoint rule is', &lt;Quantity 5.30196164e+08&gt;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">74763158.7796 kpc solMass / pc</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2.17435424078e+12 solMass / pc</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAYUAAAEWCAYAAACJ0YulAAAACXBIWXMAAAsS
+AAALEgHS3X78AAAAO3pUWHRTb2Z0d2FyZQAACJnLTSwpyMkvyclMUihLLSrO
+zM9TMNIz0jPWUcgoKSmw0tfPhSvQyy9K1wcApzcQ854efX0AACAASURBVHic
+7N15QBR1/wfw9wJyL/chsNwgcqOAVyrmfYWPV2qeeeBRvzSfSqtHMx+zS8vH
+NMsyTVIxtSdvM01NE1NUNE+Q+77vc9n9/P4g5xFhWVSWaz+vf2B3Zmc+MwPz
+3vnOzHdERERgjDHGAGi0dgGMMcbaDg4FxhhjAg4FxhhjAg4FxhhjAg4Fxhhj
+Ag4FxhhjAg6Fdig5ORmGhoaQyWRP9fm1a9di7ty5zVyVcv/9739hb28PQ0ND
+XL9+vcXn35oSExMhEolQU1PTYvNctWoVpk2b9kzT2LVrF4YOHapw+NmzZyGR
+SJ56+o/W+Kx/16x5cCio2LBhw7By5cp67x88eBCdO3d+qp2Eg4MDSktLoamp
+qXTchv5p33nnHXz77bdPPN9n9cYbb2DTpk0oLS1Ft27d6g0XiUSwtraus05q
+ampgZWUFkUjUkqWyv02dOhUnT54UXotEIjx48EAl82rq3/WOHTvQt29fldTA
+OBRUbtasWQgPD8fj9wiGh4dj6tSp0NLSeqLpteQ3zeaWlJQEb2/vRscxMTHB
+8ePHhdfHjh2DqampqktjjP2NQ0HF/vGPfyA/Px/nz58X3isoKMCRI0cwY8YM
+AMDRo0fRrVs3GBkZwd7eHqtWrRLGfdjssG3bNjg4OGDgwIH1miK2b98OT09P
+iMViuLi44OuvvwYAlJWVYcSIEUhPT4ehoSEMDQ2Rnp5er1nh0KFD8Pb2homJ
+CQYMGIC7d+8Kw5ycnLBu3Tr4+fnB2NgYkyZNQmVlZYPLKpfLsWbNGjg6OsLK
+ygozZsxAUVERqqqqhGYBf39/uLq6Klxf06dPx86dO4XXO3fuFNbTQ4qWFwBy
+c3MxevRomJiYwMzMDP369YNcLgcAfPzxx7Czs4NYLIaHhwdOnz7dYA1VVVV4
+44034ODgAGtrayxYsAAVFRUA/nfktX79elhZWcHGxgbbt28XPltRUYF//vOf
+cHR0hLGxMfr27St89lHp6ekIDQ2FmZkZ3Nzc8M033wjDLl++jKCgIBgZGcHa
+2hpLly4Vhl26dAl9+vSBiYkJ/P39cfbsWWFYQkICQkJCIBaLMWTIEOTm5ipc
+zyEhIThw4AAA4MKFCxCJRDh27BgA4NSpUwgICABQ91t5//79AQD+/v4wNDTE
+3r17hekpWh+Pa6zGx/+ud+zYARcXF4jFYjg7O2PXrl24e/cuFixYgMjISBga
+GsLExARA0/6Hvv/+ezg4OMDCwgIffPCBMFwmk2Ht2rVwdXWFWCxGYGAgUlJS
+AAD37t3DkCFDYGZmBg8PD/z4448Kl63DIKZyc+fOpTlz5givv/rqK/L39xde
+nzlzhm7evEkymYxu3LhBVlZW9N///peIiBISEggATZ8+nUpLS6m8vFx4TyqV
+EhHRkSNH6MGDBySXy+ns2bOkp6dHV69eFaZtZ2dXp5733nuPpk6dSkRE9+/f
+J319fTp58iRVV1fTxx9/TK6urlRVVUVERI6OjhQcHExpaWmUl5dHXbt2pS1b
+tjS4nNu2bSNXV1eKi4ujkpISGjt2LE2bNk0YDoBiY2MVricA9Ndff5GVlRUV
+FBRQQUEBWVlZ0V9//UWP/qk2trzLly+n+fPnU3V1NVVXV9Pvv/9Ocrmc7t27
+RxKJhNLS0oT1+uDBgwbrWLx4Mb3wwguUl5dHxcXFNHr0aFq+fLmwPjU1NWnF
+ihVUXV1NR48eJT09PcrPzyciokWLFlFISAilpqZSTU0N/fHHH1RZWVlvm/Xv
+358WLlxIFRUVdP36dbKwsKBTp04REVGvXr1o586dRERUUlJCkZGRRESUmppK
+ZmZmdPToUZLJZHTy5EkyMzOj7Oxs4XOvv/46VVZW0rlz58jQ0FDYzo9bsWIF
+vfrqq0RE9MEHH5CLiwu99dZbwrDXXnuNiIi2b99Ozz33nMJtqGx9PK6xGh9d
+R6WlpSQWi+nevXtERJSenk63bt1qsKaHdSj7H5o7dy6Vl5dTdHQ0aWtr0507
+d4iI6JNPPiEfHx+6d+8eyeVyio6OptzcXCotLSWJRELfffcdSaVSunr1Kpmb
+mwt1dFTtMhRefvllsrS0JG9vb6Xjnjt3jrp160aampq0b98+4f3r169Tr169
+yMvLi3x9fSkiIkJl9Z4/f56MjIyovLyciIj69OlDn332mcLxFy9eTEuWLCGi
+//1Bx8XFCcMf38E8bsyYMbRhwwYiUh4Kq1evpokTJwrDZDIZ2dra0pkzZ4io
+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
+qSuSmJgo9DoZFRWF1157rdFxd+/e/UQ1N6c+ffo80fgDBgxo8GHtI0eOFNa9
+oaFhs9TGGIcCe2J6enqIjo7GrVu3YGZmhs2bNz/1tFavXo3Bgwc3Y3VAUFAQ
+Nm7cqHB4a4fCxYsXm2U6x44dg4mJSbNMSxmZTNYi82Gtj0OBPZPevXsLHW6V
+lpZi0KBB6N69O3x9fXHw4EFhvA8++AAeHh4YPHiwcJcuUPcoYPXq1QgODoaP
+jw/CwsKU9gN/9epV+Pv7o3fv3nWC6ezZs8IzF86dO4eAgAAEBASgW7duKCkp
+wfLly3H+/HkEBATg888/R2JiIvr164fu3buje/fuwk777NmzGDBggPBMg6lT
+pwo1XblyBX369IG/vz969OiBkpISyGQyvPnmmwgODoafnx++/vrrBut++K2+
+sek3RC6XY+bMmfjXv/4FAHByckJubm6dcYgIb775Jnx8fODr64u9e/cK8+rf
+vz/Gjh0LLy8vLFiwAHK5HACwcOFCBAUFwdvbG++9954wLScnJ6xevRp9+/bF
+vn37sHHjRnh5ecHPzw+TJ08GAJSVlWH27NkIDg5Gt27dhG0uk8nwxhtvwNfX
+F35+fvjiiy8a3ZasDXnWu/OY+jEwMCCi2udUTJgwgY4fP05Etd0XFxUVERFR
+Tk4Oubq6klwup6ioKPLx8aGysjIqKioiV1dX+vTTT4mIaObMmbRv3z4iIuEu
+TiKiadOm0aFDh+qN8yhfX186e/YsERG98cYbQlfEj971PHr0aLpw4QIREZWU
+lJBUKq0znIiorKyMKioqiIgoJiaGAgMDhekYGRlRSkoKyWQy6tWrF50/f56q
+qqrI2dmZLl++TES13VxLpVL6+uuv6d///jcREVVWVlJgYCDFx8crXH+Kpv+4
+kJAQioyMpMmTJ9e5G9/R0ZFycnLqTHP//v00ePBgqqmpoczMTLK3t6f09HQ6
+c+YM6ejoUFxcHNXU1NDgwYPrrfeamhoKCQmhGzduCNP/+OOPhfnZ2NgIdxMX
+FBQQEdHbb79N4eHhwnvu7u5UWlpKX375JY0bN07o8vrRbcvaNj5SYE+soqIC
+AQEBMDc3F54YBdR+S33nnXfg5+eHwYMHIy0tDVlZWTh//jzGjh0LfX19GBkZ
+Kex36syZM+jZsyd8fX3x22+/4fbt2wprKCoqQmFhIUJCQgAA06dPb3C85557
+DkuXLsXGjRtRWFgodMH8KKlUinnz5sHX1xcTJ07EnTt3hGE9evSARCKBhoYG
+AgICkJiYiPv378PGxgbBwcEAACMjI2hpaeHkyZPYuXMnAgIC0LNnT+Tl5SE2
+NrbRddnQ9Bsyf/58+Pj44N133210ehcuXMCUKVOgqakJa2trhISE4MqVK8K8
+XFxcoKmpiSlTpuDChQsAgB9//BHdu3dHt27dcPv27TrLP2nSJOF3Pz8/TJ06
+FT/88IOwHk+ePImPPvoIAQEBGDBgACorK5GcnIxTp05hwYIFwnhmZmaN1s3a
+Dg4F9sQenlNISkpCdXW10HSza9cu5OTk4OrVq4iOjoa1tTUqKysBKO++t7Ky
+EosWLcL+/fvx119/Yd68ecJnG0JETeoSePny5fj2229RUVGBXr164d69e/XG
++fzzz2FtbY0bN24gKiqCbh1kAAADKUlEQVRKeNwjAOjo6Ai/a2pqoqamRuG8
+iQhffPEFoqOjER0djYSEBAwdOrTR+hqafkP69OmDM2fONLpOHtagyOM1i0Qi
+JCQkYN26dTh9+jRu3ryJUaNG1ZmHgYGB8PvRo0fxyiuv4OrVqwgMDBTWxYED
+B4RlTk5OhqenZ5O3D2t7OBTYUzM2NsbGjRuxbt06SKVSFBUVwcrKCp06dcKZ
+M2eQlJQEAOjfvz/++9//oqKiAiUlJTh8+HC9aT3cEVlYWKC0tFTp1UYmJiYw
+NjYWvu3u2rWrwfHi4uLg6+uLZcuWISgoCPfu3YNYLEZJSYkwTlFREWxsbKCh
+oYHw8HClJ1W7du2K9PR04Rt4SUkJampqMGzYMGzZsgVSqRQAEBMTg7Kyskan
+1VRz5szByJEjMXHiRIXBAdSu671790ImkyEnJwe///670EPo5cuXkZCQALlc
+jr1796Jv374oLi6GgYEBjI2NkZWV1eDzC4Da8xkPnw/+ySefoLCwEKWlpRg2
+bBi++OILIYyuX78OABg6dCi++uorodb8/PxmWQ9M9eofSzP2BLp16wZ/f39E
+RERg6tSpeOGFFxAUFISAgAB07doVANC9e3dMmjQJAQEBcHR0RL9+/epNx8TE
+RGjCcXJyEppmGrN9+3bMnj0b+vr6CruD3rBhA86cOQNNTU14eXlhxIgR0NDQ
+gJaWFvz9/TFr1iwsWrQI48ePx759+/D888/X+XbcEG1tbezduxf/93//h4qK
+Cujp6eHUqVOYO3cuEhMT0b17dxARLC0t8fPPPzdhLTbN0qVLUVRUhOnTpysM
+wbFjxyIyMhL+/v4QiUT45JNP0LlzZ9y7dw+9e/fG8uXL8ddffwknnTU0NNCt
+Wzd4e3vDxcUFzz33XIPTlclkmDZtGoqKikBEeP3112FiYoIVK1ZgyZIl8PPz
+AxHByckJR44cwdy5cxETEwM/Pz906tQJ8+bNw6uvvtps64KpDveSypgaOHv2
+LNatW4cjR460dimsjePmI8YYYwI+UmCMMSbgIwXGGGMCDgXGGGMCDgXGGGMC
+DgXGGGMCDoX/3ygYBaNgFIwCOAAA+jE3nmYk4iAAAAAASUVORK5CYII=
+" /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">546</span><span style=" color:#000080;">]:</span> from astropy import units as u                 #for units</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> from pb_1 import midpoint                       #integrator</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import math                                    #for the log function</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> import matplotlib.pyplot as plt                #for plotting</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> #defining constants</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Function returns V_c**2(where V_c is circular velocity)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def y(r,c,r_2,v_2): #v==vc**2                  #Arguments(Radial distance=r, concentration factor=c, </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>                                                #Virial radius=r_2, Speed at r_2=v_2 )</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     x=r/r_2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=math.log(1+c*x)-((c*x)/(1+c*x))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     den=math.log(1+c)-(c/(1+c))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=(((v_2)**2)/x)*(num/den)                   #the equation for v_c**2</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(v)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###function returns Mass enclosed              #Arguments(Radial distance=r, V_c=v, Gravitational constant=G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc(r,v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     num=r*v</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(num/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def Menc_1(v,G):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=v*((1*u.s**2)/(1*u.km**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=G/(1*(u.parsec*u.km**2)/(u.Msun*u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     def y(x):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>         return(x*v/G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return(y)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=10*u.kiloparsec                              #initialising to get Menc and V_c values at different r and plotting them</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=10*u.kiloparsec                              #increments in r</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Me_m=[]</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> for i in range(1000):                          #change range r to plot for different values</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_m.append(r/(1*u.kiloparsec))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_m.append(v/(1*u.km**2/u.s**2))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Men=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Me_m.append(Men/(1*u.Msun))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r=r+a</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.title(&quot;Variation of Mass enclosed with distance&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.xlabel(&quot;Radial distance in kiloparsec&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.ylabel(&quot;Mass enclosed in Msun&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.plot(r_m,Me_m)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> plt.savefig(&quot;/Users/aj3008/Desktop/MS_3rd_Sem/Comp_methods_in_AST/Comp_methods/HW_2/Images/pb2plot&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Total mass of the  halo</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=300*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M=Menc(r,v,G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(&quot;The mass of the Halo is&quot;,M)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec                           #take whatever you want</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=300*u.kiloparsec                              #point at which you wann calculate</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> a=(r-Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> b=(r+Del_r)/(1*u.kiloparsec)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> v=y(r,c,r_2,v_2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r=midpoint(Menc_1(v,G),a,b,2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###Amount of mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> Del_r=5*u.kiloparsec </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> r=300*u.kiloparsec  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> M_r1=Menc(r+Del_r,y(r+Del_r,c,r_2,v_2),G)-Menc(r-Del_r,y(r-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(&quot;Mass in a little shell&quot;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> ###dM/dr</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> def df(r,h):</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     Del_r=5*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     c=15</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     v_2=160*u.km/u.s</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     r_2=230*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     G=(4.3*10**(-3))*(u.parsec*u.km**2)/(u.Msun*u.s**2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M1=Menc(r+Del_r,y(r,c,r_2,v_2),G)-Menc(r-Del_r,y(r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     M2=Menc(r+h+Del_r,y(r+h+Del_r,c,r_2,v_2),G)-Menc(r+h-Del_r,y(r+h-Del_r,c,r_2,v_2),G)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     print(M2)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span>     return((M2-M1)/h)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> h=0.00001*u.kiloparsec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">     ...:</span> print(df(r,h))</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The mass of the Halo is', &lt;Quantity 1.02341367e+09 kpc solMass / pc&gt;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">('The value from midpoint rule is', &lt;Quantity 1.02341367e+10&gt;)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Mass in a little shell</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">14901433.5692 kpc solMass / pc</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1.92123554692e+12 solMass / pc</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAYUAAAEWCAYAAACJ0YulAAAACXBIWXMAAAsS
+AAALEgHS3X78AAAAO3pUWHRTb2Z0d2FyZQAACJnLTSwpyMkvyclMUihLLSrO
+zM9TMNIz0jPWUcgoKSmw0tfPhSvQyy9K1wcApzcQ854efX0AACAASURBVHic
+7N15QBR1/wfw9wJyL/chsNwgcqOAVyrmfYWPV2qeeeBRvzSfSqtHMx+zS8vH
+NMsyTVIxtSdvM01NE1NUNE+Q+77vc9n9/P4g5xFhWVSWaz+vf2B3Zmc+MwPz
+3vnOzHdERERgjDHGAGi0dgGMMcbaDg4FxhhjAg4FxhhjAg4FxhhjAg4Fxhhj
+Ag4FxhhjAg6Fdig5ORmGhoaQyWRP9fm1a9di7ty5zVyVcv/9739hb28PQ0ND
+XL9+vcXn35oSExMhEolQU1PTYvNctWoVpk2b9kzT2LVrF4YOHapw+NmzZyGR
+SJ56+o/W+Kx/16x5cCio2LBhw7By5cp67x88eBCdO3d+qp2Eg4MDSktLoamp
+qXTchv5p33nnHXz77bdPPN9n9cYbb2DTpk0oLS1Ft27d6g0XiUSwtraus05q
+ampgZWUFkUjUkqWyv02dOhUnT54UXotEIjx48EAl82rq3/WOHTvQt29fldTA
+OBRUbtasWQgPD8fj9wiGh4dj6tSp0NLSeqLpteQ3zeaWlJQEb2/vRscxMTHB
+8ePHhdfHjh2DqampqktjjP2NQ0HF/vGPfyA/Px/nz58X3isoKMCRI0cwY8YM
+AMDRo0fRrVs3GBkZwd7eHqtWrRLGfdjssG3bNjg4OGDgwIH1miK2b98OT09P
+iMViuLi44OuvvwYAlJWVYcSIEUhPT4ehoSEMDQ2Rnp5er1nh0KFD8Pb2homJ
+CQYMGIC7d+8Kw5ycnLBu3Tr4+fnB2NgYkyZNQmVlZYPLKpfLsWbNGjg6OsLK
+ygozZsxAUVERqqqqhGYBf39/uLq6Klxf06dPx86dO4XXO3fuFNbTQ4qWFwBy
+c3MxevRomJiYwMzMDP369YNcLgcAfPzxx7Czs4NYLIaHhwdOnz7dYA1VVVV4
+44034ODgAGtrayxYsAAVFRUA/nfktX79elhZWcHGxgbbt28XPltRUYF//vOf
+cHR0hLGxMfr27St89lHp6ekIDQ2FmZkZ3Nzc8M033wjDLl++jKCgIBgZGcHa
+2hpLly4Vhl26dAl9+vSBiYkJ/P39cfbsWWFYQkICQkJCIBaLMWTIEOTm5ipc
+zyEhIThw4AAA4MKFCxCJRDh27BgA4NSpUwgICABQ91t5//79AQD+/v4wNDTE
+3r17hekpWh+Pa6zGx/+ud+zYARcXF4jFYjg7O2PXrl24e/cuFixYgMjISBga
+GsLExARA0/6Hvv/+ezg4OMDCwgIffPCBMFwmk2Ht2rVwdXWFWCxGYGAgUlJS
+AAD37t3DkCFDYGZmBg8PD/z4448Kl63DIKZyc+fOpTlz5givv/rqK/L39xde
+nzlzhm7evEkymYxu3LhBVlZW9N///peIiBISEggATZ8+nUpLS6m8vFx4TyqV
+EhHRkSNH6MGDBySXy+ns2bOkp6dHV69eFaZtZ2dXp5733nuPpk6dSkRE9+/f
+J319fTp58iRVV1fTxx9/TK6urlRVVUVERI6OjhQcHExpaWmUl5dHXbt2pS1b
+tjS4nNu2bSNXV1eKi4ujkpISGjt2LE2bNk0YDoBiY2MVricA9Ndff5GVlRUV
+FBRQQUEBWVlZ0V9//UWP/qk2trzLly+n+fPnU3V1NVVXV9Pvv/9Ocrmc7t27
+RxKJhNLS0oT1+uDBgwbrWLx4Mb3wwguUl5dHxcXFNHr0aFq+fLmwPjU1NWnF
+ihVUXV1NR48eJT09PcrPzyciokWLFlFISAilpqZSTU0N/fHHH1RZWVlvm/Xv
+358WLlxIFRUVdP36dbKwsKBTp04REVGvXr1o586dRERUUlJCkZGRRESUmppK
+ZmZmdPToUZLJZHTy5EkyMzOj7Oxs4XOvv/46VVZW0rlz58jQ0FDYzo9bsWIF
+vfrqq0RE9MEHH5CLiwu99dZbwrDXXnuNiIi2b99Ozz33nMJtqGx9PK6xGh9d
+R6WlpSQWi+nevXtERJSenk63bt1qsKaHdSj7H5o7dy6Vl5dTdHQ0aWtr0507
+d4iI6JNPPiEfHx+6d+8eyeVyio6OptzcXCotLSWJRELfffcdSaVSunr1Kpmb
+mwt1dFTtMhRefvllsrS0JG9vb6Xjnjt3jrp160aampq0b98+4f3r169Tr169
+yMvLi3x9fSkiIkJl9Z4/f56MjIyovLyciIj69OlDn332mcLxFy9eTEuWLCGi
+//1Bx8XFCcMf38E8bsyYMbRhwwYiUh4Kq1evpokTJwrDZDIZ2dra0pkzZ4io
+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
+qSuSmJgo9DoZFRWF1157rdFxd+/e/UQ1N6c+ffo80fgDBgxo8GHtI0eOFNa9
+oaFhs9TGGIcCe2J6enqIjo7GrVu3YGZmhs2bNz/1tFavXo3Bgwc3Y3VAUFAQ
+Nm7cqHB4a4fCxYsXm2U6x44dg4mJSbNMSxmZTNYi82Gtj0OBPZPevXsLHW6V
+lpZi0KBB6N69O3x9fXHw4EFhvA8++AAeHh4YPHiwcJcuUPcoYPXq1QgODoaP
+jw/CwsKU9gN/9epV+Pv7o3fv3nWC6ezZs8IzF86dO4eAgAAEBASgW7duKCkp
+wfLly3H+/HkEBATg888/R2JiIvr164fu3buje/fuwk777NmzGDBggPBMg6lT
+pwo1XblyBX369IG/vz969OiBkpISyGQyvPnmmwgODoafnx++/vrrBut++K2+
+sek3RC6XY+bMmfjXv/4FAHByckJubm6dcYgIb775Jnx8fODr64u9e/cK8+rf
+vz/Gjh0LLy8vLFiwAHK5HACwcOFCBAUFwdvbG++9954wLScnJ6xevRp9+/bF
+vn37sHHjRnh5ecHPzw+TJ08GAJSVlWH27NkIDg5Gt27dhG0uk8nwxhtvwNfX
+F35+fvjiiy8a3ZasDXnWu/OY+jEwMCCi2udUTJgwgY4fP05Etd0XFxUVERFR
+Tk4Oubq6klwup6ioKPLx8aGysjIqKioiV1dX+vTTT4mIaObMmbRv3z4iIuEu
+TiKiadOm0aFDh+qN8yhfX186e/YsERG98cYbQlfEj971PHr0aLpw4QIREZWU
+lJBUKq0znIiorKyMKioqiIgoJiaGAgMDhekYGRlRSkoKyWQy6tWrF50/f56q
+qqrI2dmZLl++TES13VxLpVL6+uuv6d///jcREVVWVlJgYCDFx8crXH+Kpv+4
+kJAQioyMpMmTJ9e5G9/R0ZFycnLqTHP//v00ePBgqqmpoczMTLK3t6f09HQ6
+c+YM6ejoUFxcHNXU1NDgwYPrrfeamhoKCQmhGzduCNP/+OOPhfnZ2NgIdxMX
+FBQQEdHbb79N4eHhwnvu7u5UWlpKX375JY0bN07o8vrRbcvaNj5SYE+soqIC
+AQEBMDc3F54YBdR+S33nnXfg5+eHwYMHIy0tDVlZWTh//jzGjh0LfX19GBkZ
+Kex36syZM+jZsyd8fX3x22+/4fbt2wprKCoqQmFhIUJCQgAA06dPb3C85557
+DkuXLsXGjRtRWFgodMH8KKlUinnz5sHX1xcTJ07EnTt3hGE9evSARCKBhoYG
+AgICkJiYiPv378PGxgbBwcEAACMjI2hpaeHkyZPYuXMnAgIC0LNnT+Tl5SE2
+NrbRddnQ9Bsyf/58+Pj44N133210ehcuXMCUKVOgqakJa2trhISE4MqVK8K8
+XFxcoKmpiSlTpuDChQsAgB9//BHdu3dHt27dcPv27TrLP2nSJOF3Pz8/TJ06
+FT/88IOwHk+ePImPPvoIAQEBGDBgACorK5GcnIxTp05hwYIFwnhmZmaN1s3a
+Dg4F9sQenlNISkpCdXW10HSza9cu5OTk4OrVq4iOjoa1tTUqKysBKO++t7Ky
+EosWLcL+/fvx119/Yd68ecJnG0JETeoSePny5fj2229RUVGBXr164d69e/XG
++fzzz2FtbY0bN24gKiqCbh1kAAADKUlEQVRKeNwjAOjo6Ai/a2pqoqamRuG8
+iQhffPEFoqOjER0djYSEBAwdOrTR+hqafkP69OmDM2fONLpOHtagyOM1i0Qi
+JCQkYN26dTh9+jRu3ryJUaNG1ZmHgYGB8PvRo0fxyiuv4OrVqwgMDBTWxYED
+B4RlTk5OhqenZ5O3D2t7OBTYUzM2NsbGjRuxbt06SKVSFBUVwcrKCp06dcKZ
+M2eQlJQEAOjfvz/++9//oqKiAiUlJTh8+HC9aT3cEVlYWKC0tFTp1UYmJiYw
+NjYWvu3u2rWrwfHi4uLg6+uLZcuWISgoCPfu3YNYLEZJSYkwTlFREWxsbKCh
+oYHw8HClJ1W7du2K9PR04Rt4SUkJampqMGzYMGzZsgVSqRQAEBMTg7Kyskan
+1VRz5szByJEjMXHiRIXBAdSu671790ImkyEnJwe///670EPo5cuXkZCQALlc
+jr1796Jv374oLi6GgYEBjI2NkZWV1eDzC4Da8xkPnw/+ySefoLCwEKWlpRg2
+bBi++OILIYyuX78OABg6dCi++uorodb8/PxmWQ9M9eofSzP2BLp16wZ/f39E
+RERg6tSpeOGFFxAUFISAgAB07doVANC9e3dMmjQJAQEBcHR0RL9+/epNx8TE
+RGjCcXJyEppmGrN9+3bMnj0b+vr6CruD3rBhA86cOQNNTU14eXlhxIgR0NDQ
+gJaWFvz9/TFr1iwsWrQI48ePx759+/D888/X+XbcEG1tbezduxf/93//h4qK
+Cujp6eHUqVOYO3cuEhMT0b17dxARLC0t8fPPPzdhLTbN0qVLUVRUhOnTpysM
+wbFjxyIyMhL+/v4QiUT45JNP0LlzZ9y7dw+9e/fG8uXL8ddffwknnTU0NNCt
+Wzd4e3vDxcUFzz33XIPTlclkmDZtGoqKikBEeP3112FiYoIVK1ZgyZIl8PPz
+AxHByckJR44cwdy5cxETEwM/Pz906tQJ8+bNw6uvvtps64KpDveSypgaOHv2
+LNatW4cjR460dimsjePmI8YYYwI+UmCMMSbgIwXGGGMCDgXGGGMCDgXGGGMC
+DgXGGGMCDoX/3ygYBaNgFIwCOAAA+jE3nmYk4iAAAAAASUVORK5CYII=
+" /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000080;">In [</span><span style=" font-weight:600; color:#000080;">547</span><span style=" color:#000080;">]:</span> </p></body></html>
