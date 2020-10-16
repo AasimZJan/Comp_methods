@@ -31,9 +31,9 @@ Y=[]
 
 #-------------------------------calculating absolute magnitude, band taken is J-----------------------
 for i in range(len(data)):
-    Av=3.1*data[i][6]
-    Al=0.271*Av  #J band
-    Y.append(data[i][3]-5*math.log((10**3)*data[i][1],10)+5-Al)
+    Av=3.1*data[i][6]    #relation 6 from HW
+    Al=0.271*Av  #J band   
+    Y.append(data[i][3]-5*math.log((10**3)*data[i][1],10)+5-Al)   #relation 4 from Hw
     
     
     
@@ -43,10 +43,14 @@ Xt=np.transpose(X)
 A=np.matmul(Xt,Y)
 B=np.matmul(Xt,X)
 C=np.linalg.inv(B)
-Para=np.matmul(C,A)
+Para=np.matmul(C,A)    #equation from lecture notes for parameter vector calculation
 errors=[[np.sqrt(C[i][i])]for i in range(len(C))]
 
 
+#-----------------------------------Printing----------------------------
+print("Alpha =",Para[0], "error=",errors[0])
+print("Beta=",Para[1],"error=",errors[1])
+print("Gamma=", Para[2], "error=",errors[2])
 
 
 

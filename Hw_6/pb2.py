@@ -25,9 +25,9 @@ fit=np.array(fit)
 
 
 #------------------------------------Plotting-------------------------------------
-plt.title("log(Period)")
+plt.title("Cephied variable- log(Period)")
 plt.xlabel("log(Period)")
-plt.ylabel("M/Fit")
+plt.ylabel("Observed_M/Fitted_M")
 plt.plot(X[:,1],Y,"o",label="Data")
 plt.plot(X[:,1],fit,"rx",label="fit")
 plt.legend()
@@ -35,20 +35,20 @@ plt.savefig("Images/pb2_p")
 plt.show()
 
 
-plt.title("Z")
-plt.xlabel("Z)")
-plt.ylabel("M/Fit")
+plt.title("Cephied variable- Z")
+plt.xlabel("Z")
+plt.ylabel("Observed_M/Fitted_M")
 plt.plot(X[:,2],Y,"o",label="data")
 plt.plot(X[:,2],fit,"rx",label="fit")
 plt.legend()
 plt.savefig("Images/pb2_z")
 plt.show()
 
-a=[-40,0]
-b=[-40,0]
-plt.xlabel("Fit")
-plt.ylabel("M")
-plt.title("Fit V/s M")
+a=[-10,0]
+b=[-10,0]
+plt.xlabel("Fitted M")
+plt.ylabel("Observed M")
+plt.title("Observed_M V/S Fitted_M")
 plt.plot(fit,Y,"rx",label="Results")
 plt.plot(a,b,label="Expected")
 plt.legend()
@@ -58,7 +58,7 @@ plt.show()
 ax = plt.axes(projection='3d')
 ax.set_xlabel("log(Period)")
 ax.set_ylabel("Z")
-ax.set_zlabel("M/fit")
+ax.set_zlabel("Observed_M/Fitted_M")
 ax.scatter3D(X[:,1],X[:,2],Y[:],"gray",label="data")
 ax.plot3D(X[:,1],X[:,2],fit[:],"ro",label="fit")
 plt.legend()

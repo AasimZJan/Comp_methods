@@ -43,3 +43,8 @@ B=np.matmul(Xt,X)
 C=np.linalg.inv(B)
 Para=np.matmul(C,A)
 errors=[[0.1*np.sqrt(C[i][i])]for i in range(len(C))]
+
+#-----------------------------------Printing----------------------------
+print("Alpha =",Para[0], "error=",errors[0])
+print("Beta=",Para[1],"error=",errors[1])
+print("Gamma=", Para[2], "error=",errors[2])
