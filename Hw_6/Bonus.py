@@ -9,7 +9,6 @@ Created on Wed Oct 14 14:10:54 2020
 #%%
 import numpy as np
 import math
-import matplotlib.pyplot as plt
 from scipy import stats
 #---------------------Opening file and removing first column which contained string(names)----------------------
 
@@ -84,4 +83,4 @@ return_value=stats.f.cdf(F,v-vn,v)
 print("full model dof=",v,"nested model dof=",vn)
 print("F statisic based on the given equation=",F)
 
-print()
+print(return_value)
