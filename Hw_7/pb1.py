@@ -7,46 +7,46 @@ Created on Fri Oct 23 09:23:15 2020
 """
 
 #%%
-#-------------------------------------------libraries--------------------------------------------
+#-----------------------------------------------libraries--------------------------------------------------
 import numpy as np
 import sympy as sp
 import matplotlib.pyplot as plt
 import math
 
-#-----------------------------------------Extracting data----------------------------------------
+#---------------------------------------------Extracting data-----------------------------------------------
 data=np.loadtxt("lightcurve_data.txt")
-t=[data[i][0]-2454953.538373 for i in range(len(data))]
+t=[data[i][0]-2454953.538373 for i in range(len(data))]     #making initial time to be zero
 I=data[:,1]
-tn=[] 
+tn=[]                #to store folded time
 
 
-#---------------------------------------------Folding--------------------------------------------
+#-----------------------------------------------Folding----------------------------------------------------
 for i in range(len(data)):
     tn.append(t[i]%3.5485)
 
     
-#-----------------------------------------Finding t ref and tau graphically-------------------------------------
+#-------------------------------------------Plotting Dip-----------------------------------------
+plt.title("Dip in intensity KEPLER")
+plt.xlabel("time in days")
+plt.ylabel("Intensity")
 plt.axis([2.261,2.4625,0.991,1.002])
 plt.plot(tn,I,"x")
+plt.savefig("Images/dip")
 plt.show()
 
 
-#--------------------------------------Defining the BOX function---------------------------------------
+#--------------------------------------Defining the BOX function--------------------------------------------
 def Box(s,tn):
     '''
-    
-
     Parameters
     ----------
-    tref : the beginning of dip
-    T : the time for which dip lasts
-    delI : the depth of dip.
-    tn : time(x) axis.
+    s : [dip,tref,width of dip]
+    tn: folded time
 
     Returns
     -------
     The data which resembles a Box when plotted
-    g=1 always(we can add a few lines for it to give priors for the posteriors)
+    g=1 always(I had made this to include priors and we can add a few lines for it to give priors for the posteriors)
 
     '''
     delI=s[0]
@@ -63,10 +63,20 @@ def Box(s,tn):
     return(f,g)
 
 
-#-----------------------------------Defining the likelihood function-----------------------------------
+#-----------------------------------Defining the likelihood function-----------------------------------------
 def Like(I,q):
-    s=q[0]
-    g=q[1]
+    '''
+    Parameters
+    ----------
+    I : Intensity (observed)
+    q : [Intensity(model), prior(useless as of now)]
+    Returns
+    -------
+    Log Likelihood of the given model
+
+    '''
+    s=q[0]       #model 
+    g=q[1]       #priors(useless)
     sum=0
     for i in range(len(I)):
 #        sum =sum+(1/(np.sqrt(2*3.14)))*np.exp(-0.5*(I[i]-s[i])**2)
@@ -74,11 +84,11 @@ def Like(I,q):
     return(sum)
         
 
-#-----------------------------------------------MCMC------------------------------------------------------
+#-----------------------------------------------MCMC----------------------------------------------------------
 i=0
-xt=[0.05,2.27,0.190]
-distd=[]
-y=[0.05,2.27,0.190]
+xt=[0.05,2.27,0.190]      #best initial guess
+distd=[]                  #to store the parameters
+y=[0.05,2.27,0.190]       #defined twice
 while i<1000:
     print(i)
     y[0]=np.random.normal(xt[0],.01)
@@ -126,52 +136,79 @@ while i<1000:
     i=i+1
     xt=list(xt)
     distd.append(xt)
+ 
     
+#-------------------------------------------Finding probability for parameters--------------------------------
 prob=[]
 sum=0
 for i in range(len(distd)):
     a=sp.exp(Like(I,Box(distd[i],tn)))
     sum=sum+a
     prob.append(a)
-prob=[prob[i]/sum for i in range(len(prob))]
-ind=prob.index(max(prob))
-print("the depth is",distd[ind])
+prob=[prob[i]/sum for i in range(len(prob))]    #normalising 
+ind=prob.index(max(prob))                       #finding max probability
+print("the value of parameters is",distd[ind])
 
 
-b=distd[ind]
-#-------------------------------------marginalised distribution-----------------------------------------
+b=distd[ind]#parameters associated with max probability
+#-------------------------------------------marginalised distribution of dip-----------------------------------------
+plt.title("marginalised distribution of dip value")
+plt.xlabel("Dip value")
+plt.ylabel("Probability")
 c=[distd[i][0] for i in range(len(distd))]
 plt.axvline(x=b[0])
 plt.plot(c,prob,"rx")
+plt.savefig("Images/dip_b")  
 plt.show()
-    
+
 
 #------------------------------------------------Plotting-----------------------------------------------------
 plt.axis([2.1,2.6,0.991,1.002])
-plt.plot(tn,I,"x")
+plt.title("Comparison of data and model")
+plt.xlabel("time in days")
+plt.ylabel("Intensity")
+plt.plot(tn,I,"x",label="data" )
 box=Box(b,tn)[0]
-plt.plot(tn,box,"x")
+plt.plot(tn,box,"x", label="model")
+plt.legend()
+plt.savefig("Images/dip_c")
 plt.show()
+
 #-----------------------------------------------corner plots--------------------------------------------------
 distd=np.array(distd)
 x=distd[:,0]
 y=distd[:,1]
 z=distd[:,2]
 color=prob
+plt.title("Corner plot of dip depth and tref")
+plt.xlabel("Dip depth")
+plt.ylabel("tref")
 plt.axvline(x=b[0])
 plt.axhline(y=b[1])
 plt.scatter(x, y,c=color)
+plt.savefig("Images/dip_d")
 plt.show()
+
+plt.title("Corner plot of dip depth and dip width")
+plt.xlabel("Dip depth")
+plt.ylabel("Dip width")
 plt.axvline(x=b[0])
 plt.axhline(y=b[2])
 plt.scatter(x, z,c=color)
+plt.savefig("Images/dip_e")
 plt.show()
+
+plt.title("Corner plot of tref and dip width")
+plt.xlabel("tref")
+plt.ylabel("Dip width")
 plt.axvline(x=b[1])
 plt.axhline(y=b[2])
 plt.scatter(y,z,c=color)
+plt.savefig("Images/dip_f")
 plt.show()
 
-#-----------------------------------------------error-------------------------------
+
+#---------------------------------------------------error------------------------------------------------------
 sum=0
 for i in range(len(distd)):
     sum=sum+distd[i][0]
@@ -179,32 +216,11 @@ avg=sum/len(distd)
 dev=0
 for i in range(len(distd)):
     dev=dev+(distd[i][0]-avg)**2
-dev=np.sqrt(dev)/len(distd)
-
+dev=np.sqrt((dev)/len(distd))
+print("the error associated with dip is =",dev)
 
 
 #----------------------------------------------Calculating Radius---------------------------------------------
-print("radius=",np.sqrt(b[0]*1.79**2),"times radius of sun with error(1*sigma)=", dev)
+print("radius of the planet is=",np.sqrt(b[0]*1.79**2))
 
-
-#%%
-j=0
-for i in range(len(distd)):
-    if 0.004<= distd[i][0] <=0.009:
-        j=j+1
-        print(distd[i],prob[i])
-
-#%%%
-j=[]
-k=[]
-for i in range(1000):
-    j.append(np.random.normal(0.3,1))
-    k.append(i)
-plt.plot(k,j)
-#%%
-k=[]
-l=[3,4,5]
-i=[5,6,7]
-k.append(l)
-k.append(i)
 
