@@ -73,19 +73,6 @@ def FFT(x):
 
 #Calculating frequency    
 def freq(time):
-    """
-    
-
-    Parameters
-    ----------
-    time : time in days.
-
-    Returns
-    -------
-    frequency in Hertz.
-
-    """
-    
 	samp_time=np.mean(np.diff(time))
 	samp_freq=1/(samp_time*3600*24)    #express in seconds
 	fre = [i*samp_freq/len(time) for i in range(int(len(time)/2))]
