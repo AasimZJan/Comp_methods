@@ -7,17 +7,14 @@ Created on Sun Nov 22 10:34:46 2020
 """
 
 #%%
+#-----------------------------------------libraries and font
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
 import emcee
 import corner
 import math
-# Make more readable plots
-rc('font',**{'size':14})
-rc('xtick',**{'labelsize':16})
-rc('ytick',**{'labelsize':16})
-rc('axes',**{'labelsize':18,'titlesize':18})
+
 
 #--------------------------------------------Functions----------------------------------------------------------
 
@@ -34,7 +31,7 @@ def lnprior(theta):
     """
     for i in range(1,4):
         if theta[i] >1 or theta[i]<-1:
-            return("a")
+            return(0)
         else: 
             return(0.25)
     pass
@@ -44,8 +41,8 @@ def lnlike(theta,data):
     '''
     Parameters
     ----------
-    I : Intensity (observed)
-    q : [Intensity(model), prior(useless as of now)]
+    theta : Array of parameters
+    data : data
     Returns
     -------
     Log Likelihood of the given model
@@ -71,23 +68,23 @@ def lnlike(theta,data):
 
 def lnprob(theta, data):
     lp = lnprior(theta)
-    # if not np.isfinite(lp):
-    #     return -np.inf
-    return lnlike(theta,data)
+    return lp+ lnlike(theta,data)
 
 
 #--------------------------------------plotting data------------------------------------------------------
 # Data: decimal year, sunspot number
 decyear, ssn = np.loadtxt("SN_m_tot_V2.0.txt", unpack=True, usecols=(2, 3))
 plt.plot(decyear, ssn, 'k.')
+plt.xlabel("year")
 plt.ylabel('Sunspot Number')
+plt.savefig("Images/data")
 plt.show()
 
 #---------------------------------------MC sampler--------------------------------------------------
 # Number of walkers to search through parameter space
 nwalkers = 10
 # Number of iterations to run the sampler for
-niter = 100
+niter = 5000
 # Initial guess of parameters
 pinit = np.array([1,0.5,0.5,0.5,0.1])
 # Number of dimensions of parameter space
@@ -110,6 +107,9 @@ samples = sampler.chain[:, burn:, :].reshape((-1, ndim))
 
 
 #%%----------------------------------------plotting the model +noise values---------------------------------
+
+
+
 N=len(ssn)
 year=[decyear[i] for i in range(132,N)]
 ssnnew=[]
@@ -117,6 +117,7 @@ x=[]
 xmodel=[]
 noise=[]
 c,phi,phi1,phi2,sigma=[np.mean(samples[:,0]),np.mean(samples[:,1]),np.mean(samples[:,2]),np.mean(samples[:,3]),np.mean(samples[:,4])]
+print("c=",c,"phi=",phi,"phi12=",phi1,"phi132=",phi2,"sigmaz=",sigma)
 for i in range(132,N):
     m=c+phi*ssn[i]+phi1*ssn[i-12]+phi2*ssn[i-132]
     n=np.random.normal(0,abs(sigma))
@@ -124,42 +125,59 @@ for i in range(132,N):
     noise.append(n)
     x.append(m+n)
     ssnnew.append(ssn[i])
-plt.plot(year,x,"k.")
+plt.title("AR and data V/s year")
+plt.xlabel("year")
+plt.ylabel("Sunspot number")
+plt.plot(year,x,"k.",label="AR model")
+plt.plot(year,ssnnew,"b.",label="data")
+plt.legend()
+plt.savefig("Images/AR")
 plt.show()
-plt.plot(year,ssnnew,"b.")
-plt.show()
-plt.figure()
+
+plt.title("noise V/s year")
+plt.xlabel("year")
+plt.ylabel("noise")
 plt.plot(year,noise)
+plt.savefig("Images/noise1")
 plt.show()
 plt.figure()
 plt.plot(ssnnew,noise,".")
+plt.title("noise V/s data")
+plt.xlabel("data")
+plt.ylabel("noise")
+plt.savefig("Images/noise2")
 plt.show()
 plt.figure()
+
+plt.title("model V/s year")
+plt.xlabel("year")
+plt.ylabel("model")
 plt.plot(year,xmodel,"k.")
+plt.savefig("Images/model1")
 plt.show()
 plt.figure()
+plt.title("model V/s data")
+plt.xlabel("data")
+plt.ylabel("model")
 plt.plot(ssnnew,xmodel,".")
+plt.savefig("Images/model2")
 plt.show()
-#%%---------------------------------------plotting noise and model separately---------------------
 
 
 
+
+#---------------------------------------plotting noise and model separately---------------------
 fig = corner.corner(samples, bins=50, color='C0', smooth=0.5, plot_datapoints=True, plot_density=True, \
                     plot_contours=True, fill_contour=False, show_titles=True)#, labels=labels)
 fig.savefig("corner.png")
+plt.savefig("Images/corner")
 plt.show()
+
+
+
+
 #%%
-N=len(ssn)
-year=[decyear[i] for i in range(132,N)]
-j=11
-for i in range(N,N+360):
-    year.append(2020+j/12)
-    j=j+1
-for i in range(360):
-    a=len(x)
-    x.append(c+phi*x[a-1]+phi1*x[a-13]+phi2*x[a-133]+np.random.normal(0,abs(sigma)))
-plt.plot(year,x,"k.")
-#%%
+#--------------------------------------plotting spectrum----------------------------------------
 def freq(time):
 	samp_time=np.mean(np.diff(time))
 	samp_freq=1/(samp_time*3600*24*30)    #express in seconds
@@ -170,10 +188,37 @@ def freq(time):
 f=np.fft.fft(xmodel)
 Amp=[(np.abs(f[i])) for i in range(int(len(xmodel)/2))]
 time1=freq(year)
-plt.title("Fourier Transform of strain")
+plt.title("Fourier Transform of data")
 plt.yscale('log')
 plt.xscale('log')
 plt.xlabel("Freqency in Hertz")
-plt.ylabel("Amplitude of Strain")
+plt.ylabel("Amplitude of data")
 plt.plot(time1,Amp)
+plt.savefig("Images/spectrum")
+plt.show()
+
+
+
+
+
+#-----------------------------------predicting to 2050---------------------------------------------------
+N=len(ssn)
+year=[decyear[i] for i in range(132,N)]
+j=11
+for i in range(N,N+360):
+    year.append(2020+j/12)
+    j=j+1
+for i in range(360):
+    a=len(x)
+    x.append(c+phi*x[a-1]+phi1*x[a-12]+phi2*x[a-132]+noise[i])
+plt.figure()
+plt.title("AR 2050 V/s year")
+plt.xlabel("year")
+plt.ylabel("Sunspot number")
+plt.plot(year,x,"k.")
+plt.savefig("Images/ARp")
+plt.show()
+plt.figure()
+
+
 
