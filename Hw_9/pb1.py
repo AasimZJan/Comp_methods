@@ -10,7 +10,6 @@ Created on Sun Nov 22 10:34:46 2020
 #-----------------------------------------libraries and font
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import rc
 import emcee
 import corner
 import math
@@ -106,24 +105,35 @@ burn = int(0.25*niter)
 samples = sampler.chain[:, burn:, :].reshape((-1, ndim))
 
 
+
+
+
+
+
+
+
+
+
+
 #%%----------------------------------------plotting the model +noise values---------------------------------
 
 
 
 N=len(ssn)
-year=[decyear[i] for i in range(132,N)]
+year=[decyear[i] for i in range(132,N)]    #not including first 132 values since they will be used as initial values
 ssnnew=[]
 x=[]
 xmodel=[]
 noise=[]
+#average of all the parameter values MCMC goes through (excluding the burnt ones)
 c,phi,phi1,phi2,sigma=[np.mean(samples[:,0]),np.mean(samples[:,1]),np.mean(samples[:,2]),np.mean(samples[:,3]),np.mean(samples[:,4])]
 print("c=",c,"phi=",phi,"phi12=",phi1,"phi132=",phi2,"sigmaz=",sigma)
 for i in range(132,N):
-    m=c+phi*ssn[i]+phi1*ssn[i-12]+phi2*ssn[i-132]
-    n=np.random.normal(0,abs(sigma))
+    m=c+phi*ssn[i]+phi1*ssn[i-12]+phi2*ssn[i-132]#model
+    n=np.random.normal(0,abs(sigma))#noise
     xmodel.append(m)
     noise.append(n)
-    x.append(m+n)
+    x.append(m+n)#AR model
     ssnnew.append(ssn[i])
 plt.title("AR and data V/s year")
 plt.xlabel("year")
@@ -166,9 +176,20 @@ plt.show()
 
 
 
-#---------------------------------------plotting noise and model separately---------------------
+
+
+
+
+
+
+
+
+
+#---------------------------------------plotting corner plots---------------------
+labels = [r"c",r"$\phi_1$",r"$\phi_{12}$", r"$\phi_{132}$",r"$\sigma_z$"]
 fig = corner.corner(samples, bins=50, color='C0', smooth=0.5, plot_datapoints=True, plot_density=True, \
-                    plot_contours=True, fill_contour=False, show_titles=True)#, labels=labels)
+                    plot_contours=True, fill_contour=False, show_titles=True, labels=labels)
+
 fig.savefig("corner.png")
 plt.savefig("Images/corner")
 plt.show()
@@ -176,14 +197,21 @@ plt.show()
 
 
 
-#%%
-#--------------------------------------plotting spectrum----------------------------------------
+
+
+
+
+
+
+
+
+
+#--------------------------------------plotting spectrum earlier method----------------------------------------
 def freq(time):
 	samp_time=np.mean(np.diff(time))
 	samp_freq=1/(samp_time*3600*24*30)    #express in seconds
 	fre = [i*samp_freq/len(time) for i in range(int(len(time)/2))]
 	return(fre)
-
 
 f=np.fft.fft(xmodel)
 Amp=[(np.abs(f[i])) for i in range(int(len(xmodel)/2))]
@@ -192,10 +220,45 @@ plt.title("Fourier Transform of data")
 plt.yscale('log')
 plt.xscale('log')
 plt.xlabel("Freqency in Hertz")
-plt.ylabel("Amplitude of data")
+plt.ylabel("Amplitude")
 plt.plot(time1,Amp)
 plt.savefig("Images/spectrum")
 plt.show()
+
+#--------------------------------------------plotting spectrum-----------------------------------------------------
+def frequ():
+    """
+    This gives the frequencies from 10^−10 to 10^2.
+    Parameters:none
+    Returns:frequency in Hertz.
+    """
+    j=10**(-10)
+    fre=[10**(-10)]
+    while j<=100:
+        j=1.25*j
+        fre.append(j)
+    return(fre)
+S=[]
+fre=frequ()
+#finding spectrun
+for i in range(len(fre)):
+    num=sigma**2
+    den=(abs(1-phi*np.exp(-2j*np.pi*1*fre[i])-phi1*np.exp(-2j*np.pi*12*fre[i])-phi2*np.exp(-2j*np.pi*132*fre[i])))**2
+    a=num/den
+    S.append(a)
+plt.title("Power spectrum")
+plt.yscale('log')
+plt.xscale('log')
+plt.xlabel("Freqency in Hertz")
+plt.ylabel("Spectrum amplitude")
+plt.plot(fre,S)
+plt.savefig("Images/spectrum2")
+plt.show()
+
+
+
+
+
 
 
 
@@ -204,7 +267,8 @@ plt.show()
 #-----------------------------------predicting to 2050---------------------------------------------------
 N=len(ssn)
 year=[decyear[i] for i in range(132,N)]
-j=11
+j=11#starting from November 2020
+#adding more months till 2050 end
 for i in range(N,N+360):
     year.append(2020+j/12)
     j=j+1

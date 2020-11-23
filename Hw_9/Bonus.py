@@ -9,16 +9,8 @@ Created on Sun Nov 22 20:26:34 2020
 
 #%%
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import rc
 import emcee
-import corner
 import math
-# Make more readable plots
-rc('font',**{'size':14})
-rc('xtick',**{'labelsize':16})
-rc('ytick',**{'labelsize':16})
-rc('axes',**{'labelsize':18,'titlesize':18})
 
 # Data: decimal year, sunspot number
 decyear, ssn = np.loadtxt("SN_m_tot_V2.0.txt", unpack=True, usecols=(2, 3))
@@ -37,7 +29,7 @@ def lnprior(theta):
     """
     for i in range(1,4):
         if theta[i] >1 or theta[i]<-1:
-            return("a")
+            return(0)
         else: 
             return(0.25)
     pass
@@ -73,23 +65,24 @@ def lnlike(theta,data):
         phi2=0
         sigma=theta[2]
     x=[]
+    ssnn=[]
     N=len(data)
     for i in range(132,N):
         xi=c+phi*data[i]+phi1*data[i-12]+phi2*data[i-132]+np.random.normal(0,abs(sigma))
         x.append(xi)
+        ssnn.append(data[i])
     s=x       #model 
     I=data       #priors(useless)
     sum=0
     for i in range(len(s)):
         sum=sum+math.log(1./(np.sqrt(2*3.14)))-0.5*(I[i+132]-s[i])**2
+#    print(stats.chisquare(ssnn,x))
     return(sum)
 
 
 def lnprob(theta, data):
     lp = lnprior(theta)
-    # if not np.isfinite(lp):
-    #     return -np.inf
-    return lnlike(theta,data)
+    return lp+ lnlike(theta,data)
 
 
 
@@ -124,7 +117,9 @@ burn = int(0.25*niter)
 samples = sampler.chain[:, burn:, :].reshape((-1, ndim))
 c,phi,phi1,phi2,sigma=[np.mean(samples[:,0]),np.mean(samples[:,1]),np.mean(samples[:,2]),np.mean(samples[:,3]),np.mean(samples[:,4])]
 theta1=[c,phi,phi1,phi2,sigma]
-AIC1=10-2*lnlike(theta1,ssn)
+a1=lnlike(theta1,ssn)
+AIC1=14+2*a1
+
 
 
 
@@ -162,7 +157,9 @@ burn = int(0.25*niter)
 samples = sampler.chain[:, burn:, :].reshape((-1, ndim))
 c,phi,phi1,sigma=[np.mean(samples[:,0]),np.mean(samples[:,1]),np.mean(samples[:,2]),np.mean(samples[:,3])]
 theta2=[c,phi,phi1,sigma]
-AIC2=8-2*lnlike(theta2,ssn)
+a2=lnlike(theta2,ssn)
+AIC2=12+2*a2
+
 
 
 
@@ -201,14 +198,14 @@ burn = int(0.25*niter)
 samples = sampler.chain[:, burn:, :].reshape((-1, ndim))
 c,phi,sigma=[np.mean(samples[:,0]),np.mean(samples[:,1]),np.mean(samples[:,2])]
 theta3=[c,phi,sigma]
-AIC3=6-2*lnlike(theta3,ssn)
+a3=lnlike(theta3,ssn)
+AIC3=10+2*a3
 
 
+#%%
+print("model 1 and 2 comparison",np.exp((AIC2-AIC1)/AIC2))
+print("model 1 and 3 comparison",np.exp((AIC3-AIC1)/AIC3))
 
-
-print("model 1 and 2 comparison",AIC1/AIC2)
-print("model 1 and 3 comparison",AIC1/AIC3)
-print("model 2 and 3 comparison",AIC2/AIC3)
 
 
 
