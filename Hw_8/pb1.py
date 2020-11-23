@@ -107,6 +107,7 @@ A=2.6*10**(-21)*12**(-1)
 B=10**(-4)
 R=(((B**4)*hz)/(A*Fre**4))**(0.2)#relation obtained by eliminating m from the two equations
 m=((hz*R)/A)**(0.5)#using R to find M
+print("h=",hz,"f_Gw=",Fre,"Hertz")
 print("R is",R,"radius of sun")
 print("M is",m,"mass of sun")
         
