@@ -72,12 +72,12 @@ def lnlike(theta,data):
         x.append(xi)
         ssnn.append(data[i])
     s=x       #model 
-    I=data       #priors(useless)
+    I=data       
     sum=0
     for i in range(len(s)):
-        sum=sum+math.log(1./(np.sqrt(2*3.14)))-0.5*(I[i+132]-s[i])**2
+        sum=sum-0.5*(I[i+132]-s[i])**2
 #    print(stats.chisquare(ssnn,x))
-    return(sum)
+    return(sum+math.log(1./(np.sqrt(2*3.14))))
 
 
 def lnprob(theta, data):
@@ -203,8 +203,8 @@ AIC3=10+2*a3
 
 
 #%%
-print("model 1 and 2 comparison",np.exp((AIC2-AIC1)/AIC2))
-print("model 1 and 3 comparison",np.exp((AIC3-AIC1)/AIC3))
+print("model 1 and 2 comparison",np.exp((-AIC2+AIC1)/2))
+print("model 1 and 3 comparison",np.exp((-AIC3+AIC1)/2))
 
 
 
